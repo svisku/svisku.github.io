@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DINOUSEG · Main</title>
+
+    <!-- FAVICON — modrá kulička s glow (soubor favicon.svg) -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="theme-color" content="#2f8aff" />
+
+    <!-- FONTY: Unbounded (nadpisy), Inter (text), Orbitron (čísla u her).
+     Všechny podporují české diakritiky (ěščřžýáíé). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Unbounded:wght@400;600;800;900&family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Hlavní styly (všechny barvy, animace, layout) -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ============================================================
+     POZADÍ — base + lava lamp bubliny + hvězdy (canvas)
+     Bubliny jsou definované v styles.css, hvězdy v app.js
+     ============================================================ -->
+    <div class="bg-base"></div>
+    <div class="lava">
+      <div class="bubble b1"></div>
+      <div class="bubble b2"></div>
+      <div class="bubble b3"></div>
+      <div class="bubble b4"></div>
+      <div class="bubble b5"></div>
+      <div class="bubble b6"></div>
+      <div class="bubble b7"></div>
+      <div class="bubble b8"></div>
+      <div class="bubble b9"></div>
+      <div class="bubble b10"></div>
+    </div>
+    <canvas id="stars"></canvas>
+
+    <!-- Tenký proužek nahoře, vyplňuje se podle scrollu -->
+    <div class="scroll-progress" id="scrollProg"></div>
+
+    <!-- ============================================================
+     NAVIGACE — 3 hlavní kategorie
+     • Domů (tato stránka — hero + kontakty)
+     • Stats (hry + hudba)
+     • Projekty (projekty + Gaming HUB)
+     ============================================================ -->
+    <nav class="top">
+      <a href="index.html"><span>Main</span></a>
+      <a href="stats.html"><span>Stats</span></a>
+      <a href="projekty.html"><span>Projects</span></a>
+      <a href="web.html"><span>Webs</span></a>
+    </nav>
+
+    <!-- ============================================================
+     HERO — velký titulek DINOUSEG + popis + tlačítka
+     Text "DINOUSEG" má jednoduchý fade in z 10% na 100% opacity.
+     ============================================================ -->
+    <header class="hero">
+      <!-- HLAVNÍ NADPIS — uprav text uvnitř <h1> pokud chceš jiné jméno -->
+      <h1 class="dino">DINOUSEG</h1>
+
+      <!-- PODTITUL — uprav popis sebe sama -->
+      <div class="hero-sub">Gamer & Developer</div>
+
+      <!-- POPIS — krátký uvítací text, lze upravit -->
+      <p class="hero-desc">
+        Welcome to my website! You’ll find everything you need to know here. If
+        you’d like to learn more about my projects, games or music, feel free to
+        look around.
+      </p>
+
+      <!-- TLAČÍTKA — odkazují na sekce/stránky -->
+      <div class="hero-cta">
+        <a href="#kontakty" class="btn primary"
+          >Connect <span class="arrow">→</span></a
+        >
+        <a href="web.html" class="btn">Webs <span class="arrow">→</span></a>
+      </div>
+    </header>
+
+    <!-- ============================================================
+     KONTAKTY — sekce s ID pro anchor scroll
+     Karty se vykreslují z DATA.contacts (data.js)
+     ============================================================ -->
+    <div class="section-divider">
+      <h2 class="page-title">Contacts</h2>
+      <p class="page-desc">
+        Click on any platform to connect with me. My accounts are active and
+        I'll respond as soon as possible.
+      </p>
+    </div>
+
+    <section class="page" id="kontakty">
+      <div class="contacts-list" id="contactsList">
+        <!-- vyplní renderContacts() v app.js -->
+      </div>
+    </section>
+
+    <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+    <footer>
+      <div class="signature">DINOUSEG</div>
+      <div class="copy">© <span id="year"></span> · Made with passion</div>
+    </footer>
+
+    <!-- Skripty: nejdřív data, pak globální app, pak konkrétní rendery pro tuto stránku -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+      // Vykreslit kontakty
+      renderContacts('#contactsList');
+    </script>
+  </body>
+</html>
