@@ -1,23 +1,3 @@
-/* ============================================================================
-   DINOUSEG — sdílené globální skripty
-   ============================================================================
-   OBSAH:
-     • STARS CANVAS — animovaná hvězdná obloha v pozadí
-     • SCROLL PROGRESS + ACTIVE NAV — proužek nahoře + zvýraznění aktivní stránky
-     • REVEAL ON SCROLL — fade-up animace při scrollu
-     • YEAR — aktuální rok v patičce
-     • RENDERY — funkce pro vykreslení kontaktů, her, hudby, projektů, hubu
-                 z dat v data.js
-   ============================================================================ */
-
-/* ============================================================================
-   STARS CANVAS — kreslí hvězdy na canvas#stars (pozadí)
-   ============================================================================
-   • Hvězdy poblikávají (sinus animace)
-   • Reagují na pohyb myši (parallax)
-   • Cca 8% hvězd je modrých, zbytek bílých
-   • Pro úpravu hustoty: změň dělitele 9000 (větší = méně hvězd)
-   ============================================================================ */
 (function () {
   const cvs = document.getElementById('stars');
   if (!cvs) return;
@@ -35,17 +15,16 @@
 
   function makeStars() {
     stars = [];
-    // hustota hvězd — uprav dělitele pro víc/méně hvězd
     const count = Math.floor((innerWidth * innerHeight) / 9000);
     for (let i = 0; i < count; i++) {
       stars.push({
         x: Math.random() * innerWidth,
         y: Math.random() * innerHeight,
-        z: Math.random() * 1 + 0.2, // hloubka (parallax sila)
-        r: Math.random() * 1.3 + 0.2, // velikost hvězdy
-        tw: Math.random() * Math.PI * 2, // fáze blikání
-        tws: 0.01 + Math.random() * 0.02, // rychlost blikání
-        blue: Math.random() < 0.08, // 8% hvězd je modrých
+        z: Math.random() * 1 + 0.2,
+        r: Math.random() * 1.3 + 0.2,
+        tw: Math.random() * Math.PI * 2,
+        tws: 0.01 + Math.random() * 0.02,
+        blue: Math.random() < 0.08,
       });
     }
   }
@@ -57,7 +36,6 @@
     makeStars();
   });
 
-  // sledování pozice myši pro parallax efekt
   let mx = innerWidth / 2,
     my = innerHeight / 2;
   addEventListener('mousemove', (e) => {
@@ -71,17 +49,15 @@
     const oy = (my - innerHeight / 2) / 40;
     for (const s of stars) {
       s.tw += s.tws;
-      const a = 0.35 + Math.sin(s.tw) * 0.35; // průhlednost — blikání
-      const px = s.x + ox * s.z; // posun s myší
+      const a = 0.35 + Math.sin(s.tw) * 0.35;
+      const px = s.x + ox * s.z;
       const py = s.y + oy * s.z;
-      // hvězda
       ctx.beginPath();
       ctx.arc(px, py, s.r * s.z, 0, Math.PI * 2);
       ctx.fillStyle = s.blue
         ? `rgba(79,195,255,${a})`
         : `rgba(220,230,255,${a * 0.75})`;
       ctx.fill();
-      // glow okolo velkých hvězd
       if (s.r * s.z > 1) {
         ctx.beginPath();
         ctx.arc(px, py, s.r * s.z * 3, 0, Math.PI * 2);
@@ -94,17 +70,10 @@
   tick();
 })();
 
-/* ============================================================================
-   SCROLL PROGRESS + ACTIVE NAV
-   ============================================================================
-   • Nastavuje šířku proužku nahoře podle pozice scrollu
-   • Označí aktivní odkaz v nav podle aktuální URL
-   ============================================================================ */
 (function () {
   const prog = document.getElementById('scrollProg');
   const navLinks = document.querySelectorAll('nav.top a');
 
-  // aktivní odkaz podle URL
   const path = location.pathname.split('/').pop() || 'index.html';
   navLinks.forEach((a) => {
     const href = a.getAttribute('href').split('/').pop();
@@ -113,7 +82,6 @@
     else a.classList.remove('active');
   });
 
-  // scroll progress bar
   addEventListener(
     'scroll',
     () => {
@@ -126,12 +94,6 @@
   );
 })();
 
-/* ============================================================================
-   REVEAL ON SCROLL — náběh elementů s třídou .reveal
-   ============================================================================
-   Když element vjede do viewportu, přidá se mu třída .in
-   (CSS pak udělá fade-up animaci, viz styles.css → REVEAL ANIMACE)
-   ============================================================================ */
 (function () {
   const io = new IntersectionObserver(
     (entries) => {
@@ -147,18 +109,11 @@
   document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 })();
 
-/* ============================================================================
-   YEAR — vyplní aktuální rok v patičce (#year)
-   ============================================================================ */
 (function () {
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 })();
 
-/* ============================================================================
-   POMOCNÉ — observer pro nově přidané reveal elementy
-   (renderery dynamicky tvoří elementy, které je třeba zaregistrovat)
-   ============================================================================ */
 function observeReveals(selector) {
   document.querySelectorAll(selector).forEach((el) => {
     if (!el.classList.contains('in')) {
@@ -178,24 +133,17 @@ function observeReveals(selector) {
   });
 }
 
-/* ============================================================================
-   RENDER: KONTAKTY
-   ============================================================================
-   Vykreslí seznam kontaktů z DATA.contacts do daného elementu.
-   target = CSS selektor cíle (např. '#contactsList')
-   ============================================================================ */
 function renderContacts(target) {
   const cg = document.querySelector(target);
   if (!cg || typeof DATA === 'undefined') return;
   DATA.contacts.forEach((c, i) => {
     const a = document.createElement('a');
     a.className = 'contact-row reveal';
-    a.style.transitionDelay = i * 60 + 'ms'; // postupné objevování
+    a.style.transitionDelay = i * 60 + 'ms';
     a.setAttribute('data-brand', c.brand);
     a.href = c.url;
     a.target = '_blank';
     a.rel = 'noopener';
-    // Fallback písmeno když fotka loga neexistuje (= první písmeno labelu)
     const fallback = (c.label || '?')[0].toUpperCase();
     a.innerHTML = `
       <div class="contact-icon">
@@ -207,7 +155,6 @@ function renderContacts(target) {
         <div class="contact-nick">${c.nick}</div>
       </div>
       <div class="contact-arrow">→</div>`;
-    // spotlight efekt sledující myš
     a.addEventListener('mousemove', (e) => {
       const r = a.getBoundingClientRect();
       a.style.setProperty('--mx', e.clientX - r.left + 'px');
@@ -218,28 +165,19 @@ function renderContacts(target) {
   observeReveals('.contact-row.reveal');
 }
 
-/* ============================================================================
-   RENDER: HRY (PODIUM)
-   ============================================================================
-   Seřadí hry podle PROCENT naplnění cíle a vykreslí podium 2-1-3.
-   Hra může mít `hours` (počítá se z DATA.goalHours)
-   nebo `trophy` (počítá se z DATA.goalTrophies).
-   ============================================================================ */
-
-// Helper — z hry vrátí hodnotu, cíl, jednotku a label
 function getGameMetric(g) {
   if ('trophy' in g) {
     return {
       value: g.trophy,
       goal: DATA.goalTrophies || 1,
-      unit: 'Trophies',
+      unit: 'TROFEJÍ',
       labelSingular: 'trofejí',
     };
   }
   return {
     value: g.hours || 0,
     goal: DATA.goalHours || 1,
-    unit: 'Hours',
+    unit: 'HODIN',
     labelSingular: 'hodin',
   };
 }
@@ -248,17 +186,13 @@ function renderGames(target) {
   const pw = document.querySelector(target);
   if (!pw || typeof DATA === 'undefined') return;
 
-  // seřadit hry sestupně podle procent naplnění cíle
   const sorted = [...DATA.games].sort((a, b) => {
     const ma = getGameMetric(a),
       mb = getGameMetric(b);
     return mb.value / mb.goal - ma.value / ma.goal;
   });
 
-  // pořadí na podiu: 2. místo vlevo, 1. uprostřed, 3. vpravo
   const podiumOrder = [sorted[1], sorted[0], sorted[2]].filter(Boolean);
-
-  // mapa: název hry → její rank
   const rankMap = new Map(sorted.map((g, i) => [g.name, i + 1]));
 
   podiumOrder.forEach((g, idx) => {
@@ -285,9 +219,7 @@ function renderGames(target) {
       </div>
       <div class="podium-pedestal">${rank}</div>
     `;
-    // kliknutí otevře detail
     el.addEventListener('click', () => openGame(g, rank));
-    // 3D tilt efekt na myš
     el.addEventListener('mousemove', (e) => {
       const r = el.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
@@ -301,14 +233,11 @@ function renderGames(target) {
   });
 }
 
-/* otevře detail hry pod podiem */
 function openGame(g, rank) {
   const gd = document.getElementById('gameDetail');
   if (!gd) return;
   const m = getGameMetric(g);
 
-  // Galerie: jen položky které mají cestu. Když se obrázek nenačte,
-  // slot se schová (žádný placeholder).
   const galleryHTML = (g.gallery || [])
     .filter((path) => path && String(path).trim() !== '')
     .map(
@@ -335,24 +264,14 @@ function openGame(g, rank) {
     </div>
   `;
   gd.classList.add('open');
-  setTimeout(
-    () => gd.scrollIntoView({ behavior: 'smooth', block: 'center' }),
-    120,
-  );
+  setTimeout(() => gd.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
 }
 
-/* zavře detail */
 function closeGame() {
   const gd = document.getElementById('gameDetail');
   if (gd) gd.classList.remove('open');
 }
 
-/* ============================================================================
-   RENDER: HUDBA
-   ============================================================================
-   Vykreslí karty s thumbnaily a play tlačítkem.
-   Klik = odkaz na YouTube.
-   ============================================================================ */
 function renderMusic(target) {
   const mg = document.querySelector(target);
   if (!mg || typeof DATA === 'undefined') return;
@@ -379,12 +298,6 @@ function renderMusic(target) {
   observeReveals('.song-card.reveal');
 }
 
-/* ============================================================================
-   RENDER: PROJEKTY
-   ============================================================================
-   Karty s ikonou, názvem, podtitulkem a popisem.
-   Akcentní barva karty je z DATA.projects[i].color
-   ============================================================================ */
 function renderProjects(target) {
   const pg = document.querySelector(target);
   if (!pg || typeof DATA === 'undefined') return;
@@ -405,7 +318,6 @@ function renderProjects(target) {
       </div>
       <div class="project-desc">${p.desc}</div>
     `;
-    // 3D tilt efekt
     el.addEventListener('mousemove', (e) => {
       const r = el.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
@@ -420,34 +332,28 @@ function renderProjects(target) {
   observeReveals('.project-card.reveal');
 }
 
-/* ============================================================================
-   RENDER: WEB / CENÍK
-   ============================================================================
-   Vykreslí karty cenových balíčků z DATA.pricing.
-   Balíček s highlight:true dostane modrý ring + odznak ("Doporučeno").
-   ============================================================================ */
-function renderPricing(target){
+function renderPricing(target) {
   const pg = document.querySelector(target);
-  if(!pg || typeof DATA==='undefined' || !DATA.pricing) return;
-  DATA.pricing.forEach((p,i)=>{
+  if (!pg || typeof DATA === 'undefined' || !DATA.pricing) return;
+  DATA.pricing.forEach((p, i) => {
     const el = document.createElement('div');
     el.className = 'pricing-card reveal' + (p.highlight ? ' is-featured' : '');
-    el.style.transitionDelay = (i*120)+'ms';
+    el.style.transitionDelay = i * 120 + 'ms';
 
-    const badgeHTML = p.highlight && p.badge
-      ? `<div class="pricing-badge">★ ${p.badge}</div>` : '';
+    const badgeHTML =
+      p.highlight && p.badge
+        ? `<div class="pricing-badge">★ ${p.badge}</div>`
+        : '';
 
-    const featuresHTML = (p.features||[])
-      .map(f => `<li><span class="check">✓</span>${f}</li>`)
+    const featuresHTML = (p.features || [])
+      .map((f) => `<li><span class="check">✓</span>${f}</li>`)
       .join('');
 
-    // Cena může být číslo (zobrazí se s "Kč") nebo string ("Custom" → bez měny).
-    // Když je definován priceOriginal vyšší než price → zobrazí se sleva:
-    // přeškrtnutá původní cena + badge s procentem.
     const isCustomPrice = typeof p.price === 'string';
-    const hasDiscount   = !isCustomPrice && p.priceOriginal && p.priceOriginal > p.price;
-    const discountPct   = hasDiscount
-      ? Math.round((p.priceOriginal - p.price) / p.priceOriginal * 100)
+    const hasDiscount =
+      !isCustomPrice && p.priceOriginal && p.priceOriginal > p.price;
+    const discountPct = hasDiscount
+      ? Math.round(((p.priceOriginal - p.price) / p.priceOriginal) * 100)
       : 0;
 
     let priceHTML;
@@ -470,7 +376,6 @@ function renderPricing(target){
         </div>`;
     }
 
-    // Tlačítko: interní odkaz (#něco nebo bez http) bez target="_blank"
     const isExternal = /^(https?:|mailto:)/.test(p.url || '');
     const targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
 
@@ -479,34 +384,28 @@ function renderPricing(target){
       <div class="pricing-tier">${p.tier}</div>
       <h3 class="pricing-name">${p.name}</h3>
       ${priceHTML}
-      <div class="pricing-note">${p.priceNote||''}</div>
+      <div class="pricing-note">${p.priceNote || ''}</div>
       <ul class="pricing-features">${featuresHTML}</ul>
       <a href="${p.url}" class="pricing-cta"${targetAttr}>
         ${p.cta} <span class="arrow">→</span>
       </a>
     `;
 
-    // 3D tilt + GROW on hover — karta defaultně malá, při hoveru vyroste
-    // (scale 1.05) a přidá se translateY + rotace podle pozice myši
-    el.addEventListener('mousemove',e=>{
-      const r=el.getBoundingClientRect();
-      const x=(e.clientX-r.left)/r.width-.5;
-      const y=(e.clientY-r.top)/r.height-.5;
-      el.style.transform = `scale(1.05) translateY(-8px) perspective(900px) rotateX(${-y*4}deg) rotateY(${x*4}deg)`;
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `scale(1.05) translateY(-8px) perspective(900px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg)`;
     });
-    el.addEventListener('mouseleave',()=>{el.style.transform=''});
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
 
     pg.appendChild(el);
   });
   observeReveals('.pricing-card.reveal');
 }
 
-
-/* ============================================================================
-   RENDER: GAMING HUB
-   ============================================================================
-   Vyplní popis, URL a obrázek hubu z DATA.hub
-   ============================================================================ */
 function renderHub() {
   if (typeof DATA === 'undefined') return;
   const desc = document.getElementById('hubDesc');

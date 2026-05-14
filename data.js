@@ -1,24 +1,4 @@
-/* ============================================================================
-   DINOUSEG — HLAVNÍ DATOVÝ SOUBOR
-   ============================================================================
-   ZDE UPRAVUJEŠ VŠECHEN OBSAH WEBU:
-     • kontakty (odkazy, nicky)
-     • hry (hodiny, popisky, screenshoty)
-     • hudba (názvy songů, odkazy na YouTube)
-     • projekty (DinBot, Deconomy…)
-     • Gaming HUB (popis, odkaz)
-   ============================================================================ */
-
 const DATA = {
-  /* ==========================================================================
-     KONTAKTY — sociální sítě, herní platformy, e-mail
-     ==========================================================================
-     Každý kontakt má:
-       brand → identifikátor (určuje barvu a SVG ikonu, neměň pokud nepřidáváš novou)
-       label → název platformy (zobrazí se malým)
-       nick  → tvůj nick / e-mail (zobrazí se velkým)
-       url   → kam vede kliknutí (přidej svůj reálný odkaz)
-     ========================================================================== */
   contacts: [
     {
       brand: 'steam',
@@ -36,7 +16,7 @@ const DATA = {
       brand: 'tidal',
       label: 'Tidal',
       nick: 'Dinouseg',
-      url: 'https://tidal.com/artist/59508796',
+      url: 'https://tidal.com/browse/user/Dinouseg',
     },
     {
       brand: 'instagram',
@@ -54,7 +34,7 @@ const DATA = {
       brand: 'roblox',
       label: 'Roblox',
       nick: 'Dinouseg',
-      url: 'https://www.roblox.com/users/4658779447/profile',
+      url: 'https://www.roblox.com/users/YOUR_ROBLOX_ID/profile',
     },
     {
       brand: 'youtube',
@@ -70,25 +50,6 @@ const DATA = {
     },
   ],
 
-  /* ==========================================================================
-     HRY — žebříček nejhranějších her
-     ==========================================================================
-     goalHours    = cílový počet hodin (lišta a žebříček se vůči němu počítají)
-     goalTrophies = cílový počet trofejí (pro hry, kde se měří trofeje místo hodin)
-                    Pořadí 1./2./3. se počítá podle procent naplnění cíle,
-                    takže můžeš mít hry s hours i hry s trophy vedle sebe.
-     ==========================================================================
-     Každá hra má tyto pole:
-       name    → název hry
-       hours   → počet odehraných hodin (POUŽIJ TOTO NEBO trophy, ne obě)
-       trophy  → počet trofejí (alternativa k hours; jednotka se zobrazí jako TROFEJÍ)
-       tags    → tagy zobrazené v detailu
-       img     → cesta k hlavnímu obrázku hry (do složky fotky/)
-       desc    → popis hry v detailu (lze použít <strong>tučně</strong>)
-       gallery → pole CEST k obrázkům v galerii detailu.
-                 Pokud cesta chybí nebo obrázek se nenačte, slot bude prázdný
-                 (žádný placeholder).
-     ========================================================================== */
   goalHours: 1000,
   goalTrophies: 200000,
   games: [
@@ -133,15 +94,6 @@ const DATA = {
     },
   ],
 
-  /* ==========================================================================
-     HUDBA — playlist (5 tracků v jednom řádku)
-     ==========================================================================
-     Každý track:
-       title  → název písničky
-       artist → interpret
-       thumb  → cesta k obrázku obalu (do složky fotky/)
-       url    → odkaz na YouTube
-     ========================================================================== */
   music: [
     {
       title: 'HAY LUPITA',
@@ -175,17 +127,6 @@ const DATA = {
     },
   ],
 
-  /* ==========================================================================
-     PROJEKTY — tvoje práce / vlastní vývoj
-     ==========================================================================
-     Každý projekt:
-       name       → název projektu
-       sub        → krátký podtitulek (typ projektu)
-       color      → akcentní barva karty (hex)
-       desc       → delší popis
-       icon       → cesta k ikoně (do složky fotky/)
-       iconLetter → záložní písmeno když chybí ikona
-     ========================================================================== */
   projects: [
     {
       name: 'DinBot',
@@ -205,26 +146,6 @@ const DATA = {
     },
   ],
 
-  /* ==========================================================================
-     WEB — pricing packages
-     ==========================================================================
-     3 packages side-by-side. One can have highlight:true → it gets emphasized.
-     Each package:
-       tier          → short label above name (Basic / Standard / Premium)
-       name          → package name (large)
-       price         → number (currency added automatically) OR string ("Custom")
-                       If price is a string, currency is hidden.
-       priceOriginal → original price BEFORE discount (optional).
-                       When set and > price, a "sale" badge with strikethrough
-                       original price is shown.
-       priceNote     → short note below price ("one-time" / "by agreement")
-       features      → list of what the package includes (rendered with ✓)
-       cta           → button label
-       url           → where the button leads
-                       (default: index.html#kontakty — sends user to contacts)
-       highlight     → true for the recommended package (pulsing glow + badge)
-       badge         → badge text when highlight is true
-     ========================================================================== */
   pricing: [
     {
       tier: 'Basic',
@@ -284,13 +205,6 @@ const DATA = {
     },
   ],
 
-  /* ==========================================================================
-     GAMING HUB — tvůj uzavřený Discord server
-     ==========================================================================
-       image → cesta k velkému obrázku (do složky fotky/)
-       url   → Discord invite odkaz
-       desc  → popis komunity
-     ========================================================================== */
   hub: {
     image: 'fotky/hub.jpg',
     url: 'https://discord.gg/NkPKnqQEHQ',
@@ -298,14 +212,6 @@ const DATA = {
   },
 };
 
-/* ============================================================================
-   IKONY KONTAKTŮ — cesty k obrázkům log
-   ============================================================================
-   Sem nahraj svoje fotky log do složky fotky/ a uprav cesty.
-   Klíč musí odpovídat brand v contacts: výše.
-   Doporučený formát: čtvercový PNG s průhledným pozadím (např. 128×128 px).
-   Když fotka chybí, zobrazí se první písmeno názvu jako fallback.
-   ============================================================================ */
 const ICONS = {
   discord: 'fotky/discord_logo.png',
   roblox: 'fotky/roblox_logo.png',

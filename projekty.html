@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DINOUSEG · Projects</title>
 
-    <!-- FAVICON — modrá kulička s glow -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="apple-touch-icon" href="favicon.svg" />
     <meta name="theme-color" content="#2f8aff" />
 
-    <!-- FONTY -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,10 +16,9 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
-    <!-- POZADÍ -->
     <div class="bg-base"></div>
     <div class="lava">
       <div class="bubble b1"></div>
@@ -39,7 +36,6 @@
 
     <div class="scroll-progress" id="scrollProg"></div>
 
-    <!-- NAVIGACE -->
     <nav class="top">
       <a href="index.html"><span>Main</span></a>
       <a href="stats.html"><span>Stats</span></a>
@@ -47,23 +43,15 @@
       <a href="web.html"><span>Webs</span></a>
     </nav>
 
-    <!-- ============================================================
-     PODSEKCE: PROJEKTY — DinBot, Deconomy…
-     Vykresluje renderProjects() z DATA.projects
-     ============================================================ -->
     <div class="section-divider">
       <h2 class="page-title">Projects</h2>
       <p class="page-desc">Things I work on and the community I build.</p>
     </div>
 
     <section class="page" id="projekty">
-      <div class="projects-grid" id="projectsGrid"><!-- karty projektů --></div>
+      <div class="projects-grid" id="projectsGrid"></div>
     </section>
 
-    <!-- ============================================================
-     PODSEKCE: GAMING HUB — velký banner s odkazem na Discord
-     Vyplní renderHub() z DATA.hub
-     ============================================================ -->
     <div class="section-divider">
       <h2 class="page-title">HUB</h2>
       <p class="page-desc">
@@ -89,11 +77,10 @@
         <div class="hub-tagline">Closed Community · By invitation</div>
         <h2 class="hub-title">Gaming HUB</h2>
         <div class="hub-badge">★ Private Server</div>
-        <p class="hub-desc" id="hubDesc"><!-- vyplní renderHub() --></p>
+        <p class="hub-desc" id="hubDesc"></p>
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
       <div class="signature">DINOUSEG</div>
       <div class="copy">© <span id="year"></span> · Made with passion</div>
@@ -102,7 +89,6 @@
     <script src="data.js"></script>
     <script src="app.js"></script>
     <script>
-      // Vykreslit projekty + hub
       renderProjects('#projectsGrid');
       renderHub();
     </script>
