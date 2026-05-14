@@ -170,15 +170,15 @@ function getGameMetric(g) {
     return {
       value: g.trophy,
       goal: DATA.goalTrophies || 1,
-      unit: 'TROFEJÍ',
-      labelSingular: 'trofejí',
+      unit: 'Trophies',
+      labelSingular: 'Trophies',
     };
   }
   return {
     value: g.hours || 0,
     goal: DATA.goalHours || 1,
-    unit: 'hours',
-    labelSingular: 'hours',
+    unit: 'Hours',
+    labelSingular: 'Hours',
   };
 }
 
