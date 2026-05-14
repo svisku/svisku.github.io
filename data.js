@@ -28,13 +28,13 @@ const DATA = {
       brand: 'xbox',
       label: 'Xbox',
       nick: 'Dinouseg',
-      url: 'https://account.xbox.com/profile?gamertag=YOUR_GAMERTAG',
+      url: 'https://account.xbox.com/profile?gamertag=dinouseg',
     },
     {
       brand: 'roblox',
       label: 'Roblox',
       nick: 'Dinouseg',
-      url: 'https://www.roblox.com/users/YOUR_ROBLOX_ID/profile',
+      url: 'https://www.roblox.com/users/Dinouseg/profile',
     },
     {
       brand: 'youtube',
