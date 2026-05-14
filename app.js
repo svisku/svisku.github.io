@@ -177,8 +177,8 @@ function getGameMetric(g) {
   return {
     value: g.hours || 0,
     goal: DATA.goalHours || 1,
-    unit: 'HODIN',
-    labelSingular: 'hodin',
+    unit: 'hours',
+    labelSingular: 'hours',
   };
 }
 
@@ -264,7 +264,10 @@ function openGame(g, rank) {
     </div>
   `;
   gd.classList.add('open');
-  setTimeout(() => gd.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+  setTimeout(
+    () => gd.scrollIntoView({ behavior: 'smooth', block: 'center' }),
+    120,
+  );
 }
 
 function closeGame() {
