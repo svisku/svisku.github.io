@@ -34,13 +34,13 @@ const DATA = {
       brand: 'roblox',
       label: 'Roblox',
       nick: 'Dinouseg',
-      url: 'https://www.roblox.com/users/Dinouseg/profile',
+      url: 'https://www.roblox.com/users/4658779447/profile',
     },
     {
       brand: 'youtube',
       label: 'YouTube',
       nick: '@Dinouseg',
-      url: 'https://youtube.com/@YOUR_YOUTUBE',
+      url: 'https://youtube.com/@dinouseg',
     },
     {
       brand: 'gmail',
