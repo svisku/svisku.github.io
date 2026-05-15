@@ -58,10 +58,6 @@ video {
 html::-webkit-scrollbar {
   width: 12px;
 }
-html::-webkit-scrollbar-track {
-  background: linear-gradient(180deg, #05060a, #0a0d14);
-  border-left: 1px solid rgba(255, 255, 255, 0.04);
-}
 html::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--accent-deep), var(--accent));
   border-radius: 10px;
