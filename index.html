@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>DINOUSEG · Home</title>
+    <meta
+      name="description"
+      content="Dinouseg — gamer & web developer. Games, music, projects and web services."
+    />
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" href="favicon.svg" />
+    <meta name="theme-color" content="#07080c" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Chakra+Petch:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css?v=9" />
+  </head>
+  <body>
+    <div class="bg-base"></div>
+    <canvas id="shader"></canvas>
+    <div class="bg-noise"></div>
+
+    <div class="scroll-progress" id="scrollProg"></div>
+
+    <nav class="top">
+      <a href="index.html"><span>Home</span></a>
+      <a href="stats.html"><span>Arcade</span></a>
+      <a href="web.html"><span>Webs</span></a>
+    </nav>
+
+    <header class="hero">
+      <h1 class="dino" data-text="DINOUSEG">DINOUSEG</h1>
+      <div class="hero-sub">Gamer <span class="amp">&amp;</span> Developer</div>
+      <p class="hero-desc">
+        Welcome to my corner of the net. Games, music and the websites I build
+        it's all here. Look around.
+      </p>
+      <div class="hero-cta">
+        <a href="#kontakty" class="btn primary"
+          >Connect <span class="arrow">→</span></a
+        >
+        <a href="web.html" class="btn">Hire me <span class="arrow">→</span></a>
+      </div>
+    </header>
+
+    <div class="section-divider reveal">
+      <h2 class="page-title">Connect</h2>
+      <p class="page-desc">
+        Tap any platform to reach me. I'll get back to you as soon as I can.
+      </p>
+    </div>
+
+    <section class="page" id="kontakty">
+      <div class="contacts-list" id="contactsList">
+        <div class="skel-list">
+          <div class="skeleton skel-row"></div>
+          <div class="skeleton skel-row"></div>
+          <div class="skeleton skel-row"></div>
+          <div class="skeleton skel-row"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="reveal">
+      <div class="signature">DINOUSEG</div>
+      <div class="copy">
+        © <span id="year"></span> Dinouseg. All rights reserved.
+      </div>
+      <div class="copy-fine">
+        Design &amp; code by Dinouseg. Unauthorized copying, reproduction or
+        redistribution of any part of this site is prohibited.
+      </div>
+    </footer>
+
+    <script src="data.js?v=9"></script>
+    <script src="app.js?v=9"></script>
+    <script>
+      renderContacts('#contactsList');
+    </script>
+  </body>
+</html>
