@@ -2,15 +2,9 @@
 <html lang="cs">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <title>DINOUSEG · Hire</title>
-    <meta
-      name="description"
-      content="Web design packages by Dinouseg — pick a plan and get in touch."
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>DINOUSEG · Setup</title>
+    <meta name="description" content="Dinouseg's full PC build and desk gear." />
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="apple-touch-icon" href="favicon.svg" />
@@ -40,24 +34,41 @@
     </nav>
 
     <div class="page-head reveal">
-      <h1 class="page-title">Web Services</h1>
+      <h1 class="page-title">My Setup</h1>
       <p class="page-desc">
-        Pick the package that fits you. Hit "I'm interested" and you'll land on
-        my contacts > message me on any platform you like.
+        Every part inside my PC and everything on my desk. Click anything to see
+        what it is.
       </p>
     </div>
 
-    <section class="page" id="pricing">
-      <div class="pricing-grid" id="pricingGrid">
-        <div class="skeleton skel-card" style="height: 360px"></div>
-        <div class="skeleton skel-card" style="height: 360px"></div>
-        <div class="skeleton skel-card" style="height: 360px"></div>
-      </div>
+    <div class="section-divider reveal">
+      <h2 class="page-title">Inside the PC</h2>
+      <p class="page-desc">The components that make the machine run.</p>
+    </div>
 
-      <p class="pricing-footnote">
-        Premium projects are quoted individually based on scope. Need something
-        not listed? Just ask. I don't issue invoices!
-      </p>
+    <section class="page" id="pcParts">
+      <div class="setup-grid" id="setupPc">
+        <div class="skel-grid">
+          <div class="skeleton skel-card"></div>
+          <div class="skeleton skel-card"></div>
+          <div class="skeleton skel-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider reveal">
+      <h2 class="page-title">Desk &amp; Gear</h2>
+      <p class="page-desc">Peripherals, audio, displays and the desk itself.</p>
+    </div>
+
+    <section class="page" id="deskParts">
+      <div class="setup-grid" id="setupDesk">
+        <div class="skel-grid">
+          <div class="skeleton skel-card"></div>
+          <div class="skeleton skel-card"></div>
+          <div class="skeleton skel-card"></div>
+        </div>
+      </div>
     </section>
 
     <footer class="reveal">
@@ -74,7 +85,8 @@
     <script src="data.js?v=18"></script>
     <script src="app.js?v=18"></script>
     <script>
-      renderPricing('#pricingGrid');
+      renderSetup('#setupPc', 'pc');
+      renderSetup('#setupDesk', 'desk');
     </script>
   </body>
 </html>

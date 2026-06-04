@@ -575,3 +575,100 @@ function renderHub() {
     window.__dino.lazy(img);
   }
 }
+
+function renderSetup(target, section) {
+  const grid = document.querySelector(target);
+  if (!grid || typeof DATA === 'undefined' || !DATA.setup) return;
+  const items = DATA.setup[section] || [];
+  grid.innerHTML = '';
+  const initialsOf = (name) =>
+    name
+      .replace(/[^A-Za-z0-9 ]/g, '')
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((w) => w[0].toUpperCase())
+      .join('');
+
+  const linkAttrs = (url) =>
+    url ? ` href="${url}" target="_blank" rel="noopener"` : '';
+
+  items.forEach((it, i) => {
+    const src = 'fotky/setup/' + it.slug + '.webp';
+    const isCombo = !!(it.combo || it.parts);
+    // combo card = plain div (each half is its own link);
+    // single card = anchor when it has a url
+    const card = document.createElement(!isCombo && it.url ? 'a' : 'div');
+    card.className = 'setup-card reveal' + (isCombo ? ' is-combo' : '');
+    card.style.transitionDelay = (i % 12) * 45 + 'ms';
+    if (!isCombo && it.url) {
+      card.href = it.url;
+      card.target = '_blank';
+      card.rel = 'noopener';
+    }
+    if (it.col) card.style.setProperty('--col', it.col);
+    if (it.span) card.style.setProperty('--span', it.span);
+
+    let imgBlock;
+    let anyHalfLink = false;
+    if (isCombo) {
+      // build ordered halves [{slug,name,url}]
+      let halvesData;
+      if (it.parts) {
+        halvesData = it.parts.map((c) =>
+          typeof c === 'string' ? { slug: c, name: c } : c
+        );
+      } else {
+        const parts = (Array.isArray(it.combo) ? it.combo : [it.combo]).map(
+          (c) => (typeof c === 'string' ? { slug: c, name: c } : c)
+        );
+        halvesData = [{ slug: it.slug, name: it.name, url: it.url }, ...parts];
+      }
+      const partsCount = halvesData.length;
+      const halves = halvesData
+        .map((p) => {
+          const tag = p.url ? 'a' : 'div';
+          if (p.url) anyHalfLink = true;
+          const badge = p.url
+            ? '<span class="half-link" aria-hidden="true">↗</span>'
+            : '';
+          return `
+          <${tag} class="split-half"${linkAttrs(p.url)}>
+            ${badge}
+            <div class="placeholder">${initialsOf(p.name)}</div>
+            <img data-src="fotky/setup/${p.slug}.webp" alt="${p.name}" loading="lazy">
+            <span class="half-name">${p.name}</span>
+          </${tag}>`;
+        })
+        .join('');
+      imgBlock = `
+        <div class="setup-img setup-img--split" data-parts="${partsCount}">
+          ${halves}
+        </div>`;
+    } else {
+      imgBlock = `
+        <div class="setup-img">
+          <div class="placeholder">${initialsOf(it.name)}</div>
+          <img data-src="${src}" alt="${it.name}" loading="lazy">
+        </div>`;
+    }
+
+    const showBadge = isCombo ? anyHalfLink : !!it.url;
+    const linkBadge =
+      showBadge && !isCombo
+        ? '<span class="setup-link" aria-hidden="true">↗</span>'
+        : '';
+    card.innerHTML = `
+      ${linkBadge}
+      ${imgBlock}
+      <div class="setup-meta">
+        <div class="setup-type">${it.type}</div>
+        <div class="setup-name">${it.name}</div>
+        <div class="setup-desc">${it.desc}</div>
+      </div>`;
+
+    grid.appendChild(card);
+    card.querySelectorAll('img').forEach((im) => window.__dino.lazy(im));
+  });
+  window.__dino.observeReveals(grid);
+}

@@ -1,6 +1,7 @@
-/* Data layer. Images point at fotky/opt/ optimized WebP.
+/* Data layer. Optimized WebP images live in category folders:
+   fotky/thumbnails/ (games, songs, logos), fotky/setup/ (setup parts).
    `thumb` = small preview (lists/cards), `img`/`full` = larger detail view. */
-const IMG = 'fotky/opt/';
+const IMG = 'fotky/thumbnails/';
 
 const DATA = {
   contacts: [
@@ -229,6 +230,235 @@ const DATA = {
     image: IMG + 'hub.webp',
     url: 'https://discord.gg/NkPKnqQEHQ',
     desc: "Gaming HUB is a closed community of my closest friends. Membership isn't guaranteed — it's reserved for a select few.",
+  },
+
+  // My setup. img -> fotky/setup/<slug>.webp
+  // Add product links in the `url` fields below (paste between the quotes).
+  // Combo cards: each half has its own url — clicking a half opens that link.
+  setup: {
+    pc: [
+      {
+        slug: 'ryzen5600',
+        url: 'https://www.alza.cz/amd-ryzen-5-5600-d7082021.htm',
+        combo: {
+          slug: 'fera5',
+          name: 'Endorfy Fera 5',
+          url: 'https://www.alza.cz/endorfy-fera-5-dual-fan-d7617316.htm',
+        },
+        name: 'Ryzen 5 5600 + Endorfy Fera 5',
+        type: 'Processor & cooler',
+        desc: '6-core / 12-thread CPU — the brain of the build — kept cool by an Endorfy Fera 5 tower air cooler.',
+      },
+      {
+        slug: 'rx6700xt',
+        url: 'https://www.alza.cz/sapphire-pulse-radeon-rx-6700-xt-12g-d6386172.htm',
+        name: 'Sapphire Pulse RX 6700 XT',
+        type: 'Graphics card',
+        desc: '12 GB GPU pushing the pixels for gaming.',
+      },
+      {
+        slug: 'b450plus',
+        url: 'https://www.alza.cz/asus-tuf-gaming-b450-plus-ii-d6219598.htm',
+        name: 'ASUS TUF Gaming B450-PLUS II',
+        type: 'Motherboard',
+        desc: 'The board everything plugs into.',
+      },
+      {
+        slug: 'furyram',
+        url: 'https://www.alza.cz/kingston-fury-32gb-kit-ddr4-3200mhz-cl16-beast-black-d6633224.htm',
+        name: 'Kingston FURY 32 GB DDR4 3200',
+        type: 'Memory',
+        desc: '32 GB CL16 dual-channel kit.',
+      },
+      {
+        slug: 'seasonic650',
+        url: 'https://www.alza.cz/seasonic-g12-gm-650-gold-v1-5-d12671790.htm',
+        name: 'Seasonic G12 GM-650 Gold',
+        type: 'Power supply',
+        desc: '650 W 80+ Gold, semi-modular.',
+      },
+      {
+        slug: 'fluctus120',
+        url: 'https://www.alza.cz/endorfy-stratus-140-pwm-d7805978.htm',
+        combo: {
+          slug: 'focus2',
+          name: 'Fractal Design Focus 2 White',
+          url: 'https://www.alza.cz/fractal-design-focus-2-white-tg-clear-tint-d7362332.htm',
+        },
+        name: 'Fluctus 140 3x + Focus 2 White',
+        type: 'Case fan & case',
+        desc: 'Endorfy Fluctus 140 PWM airflow inside a Fractal Design Focus 2 White tower with tempered glass.',
+      },
+      {
+        slug: 'sn570',
+        url: 'https://www.alza.cz/wd-blue-sn570-2tb-d7006640.htm',
+        col: 4,
+        span: 6,
+        combo: {
+          slug: 'toshiba1tb',
+          name: 'Toshiba MQ01ABD100 1 TB',
+          url: 'https://pevne-disky.heureka.cz/toshiba-1tb-2_5-sataii-5400rpm-8mb-mq01abd100/#prehled/',
+        },
+        name: 'WD SN570 2 TB + Toshiba 1 TB',
+        type: 'Storage',
+        desc: 'Fast WD Blue SN570 2 TB NVMe for the OS + a 1 TB Toshiba HDD for bulk storage.',
+      },
+    ],
+    desk: [
+      // === displays row: AOC combo (1-6) | CRG50 combo (7-12) ===
+      {
+        slug: 'aoc24',
+        col: 1,
+        span: 6,
+        parts: [
+          {
+            slug: 'lightbar',
+            name: 'AlzaPower LML-120 Light Bar',
+            url: 'https://www.alza.cz/alzapower-lml-120-monitor-light-bar-5w-51cm-cerne-d12406731.htm',
+          },
+          {
+            slug: 'aoc24',
+            name: 'AOC Q24G2A 24"',
+            url: 'https://www.alza.cz/24-aoc-q24g2a-bk-d7870150.htm',
+          },
+          {
+            slug: 'ergoarm',
+            name: 'AlzaErgo Arm AR1.1',
+            url: 'https://www.alza.cz/alzaergo-arm-ar1-1-cerny-d6306708.htm',
+          },
+        ],
+        name: 'AOC Q24G2A · Arm · Light Bar',
+        type: 'Main monitor setup',
+        desc: 'Main QHD gaming monitor on an AlzaErgo Arm AR1.1, lit by an AlzaPower LML-120 light bar.',
+      },
+      {
+        slug: 'crg50',
+        url: 'https://www.alza.cz/24-samsung-c24rg50-d5597534.htm',
+        col: 7,
+        span: 6,
+        combo: {
+          slug: 'riser',
+          name: 'AlzaErgo Riser ER160WB',
+          url: 'https://www.alza.cz/alzaergo-riser-er160wb-cerny-d5608243.htm?evt=ac&pos=1&sqid=Algolia_d6bfb482bf8cb5ca8a950920bdd6ab99',
+        },
+        name: 'Samsung CRG50 + Riser',
+        type: 'Monitor & riser',
+        desc: 'Curved FHD secondary monitor sitting on an AlzaErgo Riser ER160WB.',
+      },
+      // === keyboard row: dell (1-3) | keyboard combo (4-9) | mouse (10-12) ===
+      {
+        slug: 'dell27',
+        url: 'https://www.alza.cz/24-dell-p2414h-professional-d476517.htm',
+        col: 1,
+        span: 3,
+        name: '27" Dell p2414h"',
+        type: 'Monitor',
+        desc: 'Third FHD display.',
+      },
+      {
+        slug: 'akko5075b',
+        url: 'https://www.alza.cz/akko-5075b-plus-dracula-castle-d12738073.htm',
+        col: 4,
+        span: 6,
+        combo: {
+          slug: 'geekboykeycaps',
+          name: 'Geekboy Keycaps',
+          url: 'https://www.alza.cz/dark-project-x-geekboy-keycaps-d12755903.htm?kampan=adwacc_prislusenstvi-pro-ittv_pla_all_obecna-css_klavesnice_c_9247814__DPnklav01&gad_source=1&gad_campaignid=10821168645&gclid=CjwKCAjwxITRBhBYEiwA6mZm7bK7rDUENm_rIkLUKp-k4MQ6BInXKHNVk3RSB13WJujKXCezgrx1JBoCc7MQAvD_BwE',
+        },
+        name: 'Akko 5075B + Geekboy Keycaps',
+        type: 'Keyboard',
+        desc: 'Akko 5075B Plus Dracula Castle (V3 Pro Cream Yellow) wearing a custom Geekboy keycap set.',
+      },
+      {
+        slug: 'g305',
+        url: 'https://www.alza.cz/logitech-g305-recoil-cerna-d5285988.htm?evt=ac&pos=1&sqid=Algolia_1a20de36012a3669be06e3fb34334ec8',
+        col: 10,
+        span: 3,
+        name: 'Logitech G305',
+        type: 'Mouse',
+        desc: 'Lightweight wireless gaming mouse.',
+      },
+      // === PYRAMID top (4 wide): numpad | wheel | headphones | mic ===
+      {
+        slug: 'numcalc',
+        url: 'https://www.alza.cz/connect-it-numcalc-ckb-0060-bk-cerna-d5506514.htm?kampan=adwacc_prislusenstvi-pro-ittv_pla_all_obecna-css_klavesnice_c_9247814__JD765x1a&gad_source=1&gad_campaignid=10821168645&gclid=CjwKCAjwxITRBhBYEiwA6mZm7R7P-NyhxBTGUIxL2Ds5b_eQAYwk3Tu9Y59JEw1RSsN8BAFqtNo74RoCHiAQAvD_BwE',
+        col: 1,
+        span: 3,
+        name: 'CONNECT IT NumCALC',
+        type: 'Numpad',
+        desc: 'Standalone wireless numeric keypad.',
+      },
+      {
+        slug: 'g29',
+        url: 'https://www.alza.cz/gaming/logitech-g29-driving-force-d2905113.htm?evt=ac&pos=2&sqid=Algolia_03bc1320a7ec90ca368cf3bb744b975a',
+        col: 4,
+        span: 3,
+        name: 'Logitech G29',
+        type: 'Racing wheel',
+        desc: 'Force-feedback wheel + pedals (PC/PS).',
+      },
+      {
+        slug: 'dt770',
+        url: 'https://www.alza.cz/beyerdynamic-dt-770-pro-80-ohm-d5485134.htm?evt=ac&pos=1&sqid=Algolia_04273475f4dc67ee27173b286c31cbcf',
+        col: 7,
+        span: 3,
+        name: 'Beyerdynamic DT 770 Pro 80Ω',
+        type: 'Headphones',
+        desc: 'Closed-back studio headphones.',
+      },
+      {
+        slug: 'fifinet669',
+        url: 'https://www.alza.cz/fifine-t669-d6297954.htm?evt=ac&pos=1&sqid=Algolia_5f4b0cf098f505d22ead73e0cb043539',
+        col: 10,
+        span: 3,
+        name: 'FIFINE T669',
+        type: 'Microphone',
+        desc: 'USB condenser mic with arm.',
+      },
+      // === PYRAMID middle (3 centered): quest | switch | chair ===
+      {
+        slug: 'quest3',
+        url: 'https://www.alza.cz/gaming/meta-quest-3-128-gb-d7962773.htm',
+        col: 2,
+        span: 3,
+        name: 'Meta Quest 3 (128 GB)',
+        type: 'VR headset',
+        desc: 'Standalone mixed-reality headset.',
+      },
+      {
+        slug: 'tplinkswitch',
+        url: 'https://www.alza.cz/tp-link-litewave-ls105g-d5711597.htm',
+        col: 5,
+        span: 3,
+        name: 'TP-Link LiteWave LS105G',
+        type: 'Network switch',
+        desc: '5-port gigabit switch.',
+      },
+      {
+        slug: 'presidentchair',
+        url: 'https://www.alza.cz/idea-nabytek-kancelarske-kreslo-president-cerne-d12924855.htm?evt=ac&pos=1&sqid=Algolia_54d4d6194b7cae943cc5a851e98f1265',
+        col: 8,
+        span: 3,
+        name: 'IDEA President',
+        type: 'Office chair',
+        desc: 'Black office chair.',
+      },
+      // === PYRAMID bottom (centered): desk ===
+      {
+        slug: 'bekanttop',
+        url: 'https://www.ikea.com/gb/en/p/bekant-table-top-white-60253184/',
+        col: 4,
+        span: 6,
+        combo: {
+          slug: 'bekantframe',
+          name: 'IKEA BEKANT Frame',
+          url: 'https://www.ikea.com.tr/en/product/bekant-black-160x80-cm-underframe-for-table-top-30252906',
+        },
+        name: 'IKEA BEKANT 160×80',
+        type: 'Desk',
+        desc: 'White 160×80 cm table top on a black underframe.',
+      },
+    ],
   },
 };
 

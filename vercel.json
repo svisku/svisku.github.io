@@ -4,7 +4,7 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/fotky/opt/(.*)",
+      "source": "/fotky/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
