@@ -21,7 +21,7 @@ const DATA = {
       brand: 'tidal',
       label: 'Tidal',
       nick: 'Dinouseg',
-      url: 'https://tidal.com/browse/user/Dinouseg',
+      url: 'https://tidal.com/@dinouseg',
     },
     {
       brand: 'instagram',
