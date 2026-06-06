@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css?v=18" />
+    <link rel="stylesheet" href="styles.css?v=25" />
   </head>
   <body>
     <div class="bg-base"></div>
@@ -32,33 +32,37 @@
 
     <div class="scroll-progress" id="scrollProg"></div>
 
+    <div class="lang-toggle" id="langToggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="cs">CZ</button>
+    </div>
+
     <nav class="top">
-      <a href="index.html"><span>Home</span></a>
-      <a href="stats.html"><span>Arcade</span></a>
-      <a href="setup.html"><span>Setup</span></a>
-      <a href="web.html"><span>Webs</span></a>
+      <a href="index.html"><span data-i18n="nav.home"></span></a>
+      <a href="stats.html"><span data-i18n="nav.arcade"></span></a>
+      <a href="setup.html"><span data-i18n="nav.setup"></span></a>
+      <a href="web.html"><span data-i18n="nav.webs"></span></a>
     </nav>
 
     <header class="hero">
       <h1 class="dino" data-text="DINOUSEG">DINOUSEG</h1>
-      <div class="hero-sub">Gamer <span class="amp">&amp;</span> Developer</div>
-      <p class="hero-desc">
-        Welcome to my corner of the net. Games, music and the websites I build
-        it's all here. Look around.
-      </p>
+      <div class="hero-sub" data-i18n="hero.sub"></div>
+      <p class="hero-desc" data-i18n="hero.desc"></p>
       <div class="hero-cta">
         <a href="#kontakty" class="btn primary"
-          >Connect <span class="arrow">→</span></a
+          ><span data-i18n="hero.connect"></span>
+          <span class="arrow">→</span></a
         >
-        <a href="web.html" class="btn">Hire me <span class="arrow">→</span></a>
+        <a href="web.html" class="btn"
+          ><span data-i18n="hero.hire"></span>
+          <span class="arrow">→</span></a
+        >
       </div>
     </header>
 
     <div class="section-divider reveal">
-      <h2 class="page-title">Connect</h2>
-      <p class="page-desc">
-        Tap any platform to reach me. I'll get back to you as soon as I can.
-      </p>
+      <h2 class="page-title" data-i18n="contacts.title"></h2>
+      <p class="page-desc" data-i18n="contacts.desc"></p>
     </div>
 
     <section class="page" id="kontakty">
@@ -75,18 +79,17 @@
     <footer class="reveal">
       <div class="signature">DINOUSEG</div>
       <div class="copy">
-        © <span id="year"></span> Dinouseg. All rights reserved.
+        © <span id="year"></span> <span data-i18n="footer.rights"></span>
       </div>
-      <div class="copy-fine">
-        Design &amp; code by Dinouseg. Unauthorized copying, reproduction or
-        redistribution of any part of this site is prohibited.
-      </div>
+      <div class="copy-fine" data-i18n="footer.fine"></div>
     </footer>
 
-    <script src="data.js?v=18"></script>
-    <script src="app.js?v=18"></script>
+    <script src="data.js?v=25"></script>
+    <script src="app.js?v=25"></script>
     <script>
-      renderContacts('#contactsList');
+      window.__dino.registerPage(function () {
+        renderContacts('#contactsList');
+      });
     </script>
   </body>
 </html>

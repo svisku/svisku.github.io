@@ -21,7 +21,7 @@ const DATA = {
       brand: 'tidal',
       label: 'Tidal',
       nick: 'Dinouseg',
-      url: 'https://tidal.com/@dinouseg',
+      url: 'https://tidal.com/browse/user/Dinouseg',
     },
     {
       brand: 'instagram',
@@ -55,46 +55,10 @@ const DATA = {
     },
   ],
 
-  goalHours: 1000,
-  goalTrophies: 200000,
   games: [
-    {
-      name: 'Minecraft',
-      hours: 7800,
-      tags: ['Survival', 'Economy', 'Developer'],
-      thumb: IMG + 'minecraft.thumb.webp',
-      img: IMG + 'minecraft.webp',
-      desc: '<strong>Minecraft</strong> is the game I played the most. I was at my peak during the quarantine on <strong>Halmine</strong>.',
-      gallery: [
-        { thumb: IMG + 'deconomy1.thumb.webp', full: IMG + 'deconomy1.webp' },
-        { thumb: IMG + 'deconomy2.thumb.webp', full: IMG + 'deconomy2.webp' },
-        { thumb: IMG + 'deconomy3.thumb.webp', full: IMG + 'deconomy3.webp' },
-        { thumb: IMG + 'deconomy4.thumb.webp', full: IMG + 'deconomy4.webp' },
-      ],
-    },
-    {
-      name: 'FiveM',
-      hours: 850,
-      tags: ['TrinityRP', 'VertexRP', 'Military'],
-      thumb: IMG + 'fivem.thumb.webp',
-      img: IMG + 'fivem.webp',
-      desc: 'I started sweating <strong>FiveM</strong> in September 2025, and after a break in January, I made a comeback on <strong>VertexRP</strong>.',
-      gallery: [
-        { thumb: IMG + 'fivem1.thumb.webp', full: IMG + 'fivem1.webp' },
-        { thumb: IMG + 'fivem2.thumb.webp', full: IMG + 'fivem2.webp' },
-        { thumb: IMG + 'fivem3.thumb.webp', full: IMG + 'fivem3.webp' },
-        { thumb: IMG + 'fivem4.thumb.webp', full: IMG + 'fivem4.webp' },
-      ],
-    },
-    {
-      name: 'Roblox',
-      hours: 2500,
-      tags: ['Sandbox', 'Multiplayer'],
-      thumb: IMG + 'roblox_logo.webp',
-      img: IMG + 'roblox_logo.webp',
-      desc: '<strong>Roblox</strong> — countless hours across all kinds of games.',
-      gallery: [],
-    },
+    { name: 'Minecraft', hours: 7800, thumb: IMG + 'minecraft.thumb.webp' },
+    { name: 'FiveM', hours: 850, thumb: IMG + 'fivem.thumb.webp' },
+    { name: 'Roblox', hours: 2500, thumb: IMG + 'roblox_logo.webp' },
   ],
 
   music: [
@@ -148,88 +112,217 @@ const DATA = {
     },
   ],
 
-  projects: [
-    {
-      name: 'DinBot',
-      sub: 'Discord Bot',
-      color: '#5865F2',
-      desc: 'A custom-programmed Discord bot for moderating my Discord server.',
-      icon: IMG + 'dinbot.webp',
-      iconLetter: 'D',
-    },
-    {
-      name: 'Deconomy',
-      sub: 'Minecraft Server',
-      color: '#5cb85c',
-      desc: 'A Survival Economy Minecraft server for my friends with tons of plugins — it took over six months to build.',
-      icon: IMG + 'deconomy.webp',
-      iconLetter: 'D',
-    },
-  ],
-
+  // Prices carry both currencies. czk = rounded down (a touch cheaper),
+  // eur = rounded up. Currency follows the UI language (cs->czk, en->eur).
   pricing: [
     {
       tier: 'Basic',
       name: 'One-Pager',
-      priceOriginal: 159,
-      price: 129,
-      priceNote: 'one-time',
+      tagline: {
+        en: 'A simple one-page website.',
+        cs: 'Jednoduchý web na jedné stránce.',
+      },
+      priceOriginal: { eur: 189, czk: 4490 },
+      price: { eur: 129, czk: 2990 },
+      priceNote: { en: 'one-time', cs: 'jednorázově' },
       features: [
-        'Single-page static website',
-        'Fully responsive (mobile & desktop)',
-        'Dark mode design',
-        'Your info, contacts & socials',
-        'Basic hover animations',
+        { en: 'One page, everything on it', cs: 'Jedna stránka, vše na ní' },
+        {
+          en: 'Looks great on phone & desktop',
+          cs: 'Skvěle vypadá na mobilu i PC',
+        },
+        { en: 'Modern design', cs: 'Moderní design' },
+        { en: 'Your info, links & socials', cs: 'Tvé info, odkazy a sítě' },
+        { en: 'Smooth hover effects', cs: 'Plynulé hover efekty' },
+        { en: 'Ready in just a few days', cs: 'Hotovo během pár dní' },
       ],
-      cta: "I'm interested",
-      url: 'index.html#kontakty',
+      cta: { en: "I'm interested", cs: 'Mám zájem' },
+      mailPackage: 'One-Pager',
       highlight: false,
     },
     {
       tier: 'Standard',
       name: 'Portfolio',
-      priceOriginal: 399,
-      price: 239,
-      priceNote: 'one-time',
+      tagline: {
+        en: 'A full custom website. The one most people pick.',
+        cs: 'Plnohodnotný web na míru. Nejčastější volba.',
+      },
+      priceOriginal: { eur: 449, czk: 9990 },
+      price: { eur: 279, czk: 6490 },
+      priceNote: { en: 'one-time', cs: 'jednorázově' },
       features: [
-        'Multi-page website',
-        'Smooth scroll & hover animations',
-        'Custom fonts and color palette',
-        'Image gallery + social cards',
-        'Contact section with form',
-        'SEO optimization',
-        'Custom domain setup',
-        '14 days of free support',
+        { en: 'Multiple pages', cs: 'Více stránek' },
+        { en: 'Custom design made for you', cs: 'Design na míru jen pro tebe' },
+        {
+          en: 'Animations & smooth scrolling',
+          cs: 'Animace a plynulé scrollování',
+        },
+        { en: 'Photo galleries & cards', cs: 'Fotogalerie a karty' },
+        { en: 'Contact form', cs: 'Kontaktní formulář' },
+        {
+          en: 'Built to rank on Google (SEO)',
+          cs: 'Připraveno na Google (SEO)',
+        },
+        {
+          en: 'Week of free changes after launch',
+          cs: 'Týden úprav zdarma po spuštění',
+        },
       ],
-      cta: "I'm interested",
-      url: 'index.html#kontakty',
+      cta: { en: "I'm interested", cs: 'Mám zájem' },
+      mailPackage: 'Portfolio',
       highlight: true,
-      badge: 'Most popular',
+      badge: { en: 'Best value', cs: 'Nejvýhodnější' },
     },
     {
       tier: 'Premium',
-      name: 'All-in-One',
-      price: 'Custom',
-      priceNote: 'by agreement',
+      name: 'Custom',
+      tagline: {
+        en: 'Built exactly how you want it.',
+        cs: 'Postavený přesně jak chceš.',
+      },
+      priceFrom: { eur: 499, czk: 11990 },
+      priceNote: { en: 'from · by agreement', cs: 'od · dle domluvy' },
       features: [
-        'Built exactly the way you want it',
-        'Premium effects (shaders, parallax, glassmorphism)',
-        'Editable data files — update content yourself',
-        'Animated transitions & micro-interactions',
-        'Custom illustrations or designs',
-        'Custom domain + full deployment',
-        'Priority support & free updates',
+        { en: 'Anything you can imagine', cs: 'Cokoliv si vymyslíš' },
+        {
+          en: '3D, shaders & advanced animations',
+          cs: '3D, shadery a pokročilé animace',
+        },
+        {
+          en: 'Custom graphics & illustrations',
+          cs: 'Vlastní grafika a ilustrace',
+        },
+        {
+          en: 'You can edit the content yourself',
+          cs: 'Obsah si můžeš upravovat sám',
+        },
+        {
+          en: 'Priority support & free updates',
+          cs: 'Přednostní podpora a aktualizace zdarma',
+        },
+        {
+          en: 'Whatever your project needs',
+          cs: 'Cokoliv tvůj projekt potřebuje',
+        },
       ],
-      cta: "Let's talk",
-      url: 'index.html#kontakty',
+      cta: { en: "Let's talk", cs: 'Pojďme to probrat' },
+      mailPackage: 'Custom',
       highlight: false,
     },
   ],
 
-  hub: {
-    image: IMG + 'hub.webp',
-    url: 'https://discord.gg/NkPKnqQEHQ',
-    desc: "Gaming HUB is a closed community of my closest friends. Membership isn't guaranteed — it's reserved for a select few.",
+  // email used by the "I'm interested" buttons (opens default mail app)
+  webMail: 'dinouseg@gmail.com',
+
+  // extra paid services, not included in the website price.
+  // czk = real price (incl. VAT), eur = rounded up. Domain prices are the
+  // STABLE yearly price (incl. 21% VAT) — same every year, no first-year promo.
+  webExtras: [
+    {
+      name: { en: 'Domain', cs: 'Doména' },
+      note: { en: 'Your web address', cs: 'Tvoje adresa webu' },
+      desc: {
+        en: 'Your own address like yourname.cz. I set it up and you just pay the yearly price.',
+        cs: 'Vlastní adresa jako tvojejmeno.cz. Nastavím ji a ty platíš jen roční cenu.',
+      },
+      items: [
+        { label: '.eu', perYear: { czk: 200, eur: 9 } },
+        { label: '.cz', perYear: { czk: 200, eur: 9 } },
+        { label: '.com', perYear: { czk: 500, eur: 21 } },
+      ],
+    },
+    {
+      name: { en: 'Hosting', cs: 'Hosting' },
+      note: { en: 'Where the site lives', cs: 'Kde web běží' },
+      desc: {
+        en: 'The space your website runs on. Paid once a year, pick a plan and I handle the setup.',
+        cs: 'Prostor, na kterém web běží. Platí se jednou ročně, vyber plán a o nastavení se postarám.',
+      },
+      items: [
+        { label: 'Basic', perYear: { czk: 790, eur: 32 } },
+        {
+          label: 'Standard',
+          perYear: { czk: 1490, eur: 60 },
+          recommended: true,
+        },
+        { label: 'Premium', perYear: { czk: 2990, eur: 120 } },
+      ],
+    },
+    {
+      name: { en: 'Monthly care', cs: 'Měsíční péče' },
+      note: { en: 'I look after it', cs: 'Starám se o web' },
+      desc: {
+        en: 'I keep the site updated, online and make small changes whenever you need. Pay monthly, cancel anytime.',
+        cs: 'Udržuji web aktuální, online a dělám drobné změny, kdykoliv potřebuješ. Platba měsíčně, lze zrušit kdykoliv.',
+      },
+      items: [{ label: 'Care plan', perMonth: { czk: 199, eur: 8 } }],
+    },
+  ],
+
+  // how it works + payment terms
+  webProcess: [
+    {
+      step: 1,
+      title: { en: 'Tell me your idea', cs: 'Řekni mi svůj nápad' },
+      text: {
+        en: 'Pick a package and message me. We go over what you want and what it should do.',
+        cs: 'Vyber balíček a napiš mi. Probereme, co chceš a co má web umět.',
+      },
+    },
+    {
+      step: 2,
+      title: { en: 'I build it', cs: 'Postavím to' },
+      text: {
+        en: 'I design and code your website from scratch — no templates.',
+        cs: 'Navrhnu a naprogramuji web od nuly — žádné šablony.',
+      },
+    },
+    {
+      step: 3,
+      title: { en: 'You try it live', cs: 'Vyzkoušíš si to naživo' },
+      text: {
+        en: 'I put it online so you can open it on your phone or computer and click around.',
+        cs: 'Pustím web online, abys ho mohl otevřít na mobilu i počítači a proklikat si ho.',
+      },
+    },
+    {
+      step: 4,
+      title: { en: 'We fine-tune it', cs: 'Doladíme to' },
+      text: {
+        en: "Tell me anything you'd like changed. I keep tweaking until you're happy.",
+        cs: 'Řekni, co chceš změnit. Ladím to, dokud nebudeš spokojený.',
+      },
+    },
+    {
+      step: 5,
+      title: { en: 'Go live', cs: 'Spuštění' },
+      text: {
+        en: 'We sort out domain and hosting, you pay, and your website goes live for real.',
+        cs: 'Vyřešíme doménu a hosting, zaplatíš a web jde naostro online.',
+      },
+    },
+  ],
+
+  webPayment: {
+    title: { en: 'Good to know', cs: 'Dobré vědět' },
+    points: [
+      {
+        en: 'You pay to my bank account — by transfer.',
+        cs: 'Platíš na můj bankovní účet — převodem.',
+      },
+      {
+        en: 'You pay for the website once, plus domain and hosting if you want them.',
+        cs: 'Za web platíš jednou, plus doménu a hosting, pokud je chceš.',
+      },
+      {
+        en: "I don't send invoices or payment receipts.",
+        cs: 'Nevystavuji faktury ani potvrzení o platbě.',
+      },
+      {
+        en: 'Your site goes live as soon as the payment lands.',
+        cs: 'Web jde online, jakmile dorazí platba.',
+      },
+    ],
   },
 
   // My setup. img -> fotky/setup/<slug>.webp
@@ -246,36 +339,51 @@ const DATA = {
           url: 'https://www.alza.cz/endorfy-fera-5-dual-fan-d7617316.htm',
         },
         name: 'Ryzen 5 5600 + Endorfy Fera 5',
-        type: 'Processor & cooler',
-        desc: '6-core / 12-thread CPU — the brain of the build — kept cool by an Endorfy Fera 5 tower air cooler.',
+        type: { en: 'Processor & cooler', cs: 'Procesor & chladič' },
+        desc: {
+          en: '6-core / 12-thread CPU, the brain of the build kept cool by an Endorfy Fera tower air cooler.',
+          cs: '6-jádrový / 12-vlákenný procesor, mozek sestavy udržovaný v chladu chladičem Endorfy Fera.',
+        },
       },
       {
         slug: 'rx6700xt',
         url: 'https://www.alza.cz/sapphire-pulse-radeon-rx-6700-xt-12g-d6386172.htm',
         name: 'Sapphire Pulse RX 6700 XT',
-        type: 'Graphics card',
-        desc: '12 GB GPU pushing the pixels for gaming.',
+        type: { en: 'Graphics card', cs: 'Grafická karta' },
+        desc: {
+          en: '12 GB GPU pushing the pixels for gaming.',
+          cs: '12 GB videopaměti ovládací karty pro hraní her.',
+        },
       },
       {
         slug: 'b450plus',
         url: 'https://www.alza.cz/asus-tuf-gaming-b450-plus-ii-d6219598.htm',
         name: 'ASUS TUF Gaming B450-PLUS II',
-        type: 'Motherboard',
-        desc: 'The board everything plugs into.',
+        type: { en: 'Motherboard', cs: 'Základní deska' },
+        desc: {
+          en: 'The board everything plugs into.',
+          cs: 'Deska, na kterou se všechno připojuje.',
+        },
       },
       {
         slug: 'furyram',
         url: 'https://www.alza.cz/kingston-fury-32gb-kit-ddr4-3200mhz-cl16-beast-black-d6633224.htm',
         name: 'Kingston FURY 32 GB DDR4 3200',
-        type: 'Memory',
-        desc: '32 GB CL16 dual-channel kit.',
+        type: { en: 'Memory', cs: 'Operační paměť' },
+        desc: {
+          en: '32 GB CL16 dual-channel kit.',
+          cs: '32 GB CL16 dual-channel kit.',
+        },
       },
       {
         slug: 'seasonic650',
         url: 'https://www.alza.cz/seasonic-g12-gm-650-gold-v1-5-d12671790.htm',
         name: 'Seasonic G12 GM-650 Gold',
-        type: 'Power supply',
-        desc: '650 W 80+ Gold, semi-modular.',
+        type: { en: 'Power supply', cs: 'Zdroj' },
+        desc: {
+          en: '650 W 80+ Gold, semi-modular.',
+          cs: '650 W 80+ Gold, polo-modulární.',
+        },
       },
       {
         slug: 'fluctus120',
@@ -286,8 +394,11 @@ const DATA = {
           url: 'https://www.alza.cz/fractal-design-focus-2-white-tg-clear-tint-d7362332.htm',
         },
         name: 'Fluctus 140 3x + Focus 2 White',
-        type: 'Case fan & case',
-        desc: 'Endorfy Fluctus 140 PWM airflow inside a Fractal Design Focus 2 White tower with tempered glass.',
+        type: { en: 'Case fan & case', cs: 'Ventilátor & skříň' },
+        desc: {
+          en: 'Three Endorfy Fluctus 140 fans for airflow, and the Fractal Design Focus 2 case they’re mounted in.',
+          cs: 'Skříň ve které to všechno je a ventilátory uvnitř ní.',
+        },
       },
       {
         slug: 'sn570',
@@ -300,8 +411,11 @@ const DATA = {
           url: 'https://pevne-disky.heureka.cz/toshiba-1tb-2_5-sataii-5400rpm-8mb-mq01abd100/#prehled/',
         },
         name: 'WD SN570 2 TB + Toshiba 1 TB',
-        type: 'Storage',
-        desc: 'Fast WD Blue SN570 2 TB NVMe for the OS + a 1 TB Toshiba HDD for bulk storage.',
+        type: { en: 'Storage', cs: 'Úložiště' },
+        desc: {
+          en: 'Fast WD Blue SN570 2 TB NVMe + 1 TB Toshiba HDD for extra storage.',
+          cs: 'Rychlý WD Blue SN570 2 TB NVMe + 1 TB Toshiba HDD pro uložistě navíc',
+        },
       },
     ],
     desk: [
@@ -328,8 +442,11 @@ const DATA = {
           },
         ],
         name: 'AOC Q24G2A · Arm · Light Bar',
-        type: 'Main monitor setup',
-        desc: 'Main QHD gaming monitor on an AlzaErgo Arm AR1.1, lit by an AlzaPower LML-120 light bar.',
+        type: { en: 'Main monitor setup', cs: 'Hlavní monitor' },
+        desc: {
+          en: 'Main QHD gaming monitor on an AlzaErgo Arm AR1.1, lit by an AlzaPower LML-120 light bar.',
+          cs: 'Hlavní QHD herní monitor na rameni AlzaErgo Arm AR1.1, osvětlený světlem AlzaPower LML-120.',
+        },
       },
       {
         slug: 'crg50',
@@ -342,8 +459,11 @@ const DATA = {
           url: 'https://www.alza.cz/alzaergo-riser-er160wb-cerny-d5608243.htm?evt=ac&pos=1&sqid=Algolia_d6bfb482bf8cb5ca8a950920bdd6ab99',
         },
         name: 'Samsung CRG50 + Riser',
-        type: 'Monitor & riser',
-        desc: 'Curved FHD secondary monitor sitting on an AlzaErgo Riser ER160WB.',
+        type: { en: 'Monitor & riser', cs: 'Monitor & podstavec' },
+        desc: {
+          en: 'Curved FHD secondary monitor sitting on an AlzaErgo Riser ER160WB.',
+          cs: 'Zakřivený FHD sekundární monitor na podstavci AlzaErgo Riser ER160WB.',
+        },
       },
       // === keyboard row: dell (1-3) | keyboard combo (4-9) | mouse (10-12) ===
       {
@@ -351,9 +471,12 @@ const DATA = {
         url: 'https://www.alza.cz/24-dell-p2414h-professional-d476517.htm',
         col: 1,
         span: 3,
-        name: '27" Dell p2414h"',
-        type: 'Monitor',
-        desc: 'Third FHD display.',
+        name: '27" Dell p2414h',
+        type: { en: 'Monitor', cs: 'Monitor' },
+        desc: {
+          en: 'Third monitor because there are never enough.',
+          cs: 'Třetí monitor protože jich nikdy není dost.',
+        },
       },
       {
         slug: 'akko5075b',
@@ -366,8 +489,11 @@ const DATA = {
           url: 'https://www.alza.cz/dark-project-x-geekboy-keycaps-d12755903.htm?kampan=adwacc_prislusenstvi-pro-ittv_pla_all_obecna-css_klavesnice_c_9247814__DPnklav01&gad_source=1&gad_campaignid=10821168645&gclid=CjwKCAjwxITRBhBYEiwA6mZm7bK7rDUENm_rIkLUKp-k4MQ6BInXKHNVk3RSB13WJujKXCezgrx1JBoCc7MQAvD_BwE',
         },
         name: 'Akko 5075B + Geekboy Keycaps',
-        type: 'Keyboard',
-        desc: 'Akko 5075B Plus Dracula Castle (V3 Pro Cream Yellow) wearing a custom Geekboy keycap set.',
+        type: { en: 'Keyboard', cs: 'Klávesnice' },
+        desc: {
+          en: 'Akko 5075B Plus Dracula Castle (V3 Pro Cream Yellow) wearing a custom Geekboy keycap set.',
+          cs: 'Akko 5075B Plus Dracula Castle (V3 Pro Cream Yellow) s vlastní sadou Geekboy keycapů.',
+        },
       },
       {
         slug: 'g305',
@@ -375,8 +501,11 @@ const DATA = {
         col: 10,
         span: 3,
         name: 'Logitech G305',
-        type: 'Mouse',
-        desc: 'Lightweight wireless gaming mouse.',
+        type: { en: 'Mouse', cs: 'Myš' },
+        desc: {
+          en: 'Lightweight wireless gaming mouse.',
+          cs: 'Lehká bezdrátová herní myš.',
+        },
       },
       // === PYRAMID top (4 wide): numpad | wheel | headphones | mic ===
       {
@@ -385,8 +514,11 @@ const DATA = {
         col: 1,
         span: 3,
         name: 'CONNECT IT NumCALC',
-        type: 'Numpad',
-        desc: 'Standalone wireless numeric keypad.',
+        type: { en: 'Numpad', cs: 'Numerická klávesnice' },
+        desc: {
+          en: 'Lowbudget streamdeck for binds and macros.',
+          cs: 'Nízkonákladový streamdeck pro zkratky a makra.',
+        },
       },
       {
         slug: 'g29',
@@ -394,8 +526,11 @@ const DATA = {
         col: 4,
         span: 3,
         name: 'Logitech G29',
-        type: 'Racing wheel',
-        desc: 'Force-feedback wheel + pedals (PC/PS).',
+        type: { en: 'Racing wheel', cs: 'Závodní volant' },
+        desc: {
+          en: 'Force-feedback wheel + pedals',
+          cs: 'Volant s force-feedbackem + pedály',
+        },
       },
       {
         slug: 'dt770',
@@ -403,8 +538,11 @@ const DATA = {
         col: 7,
         span: 3,
         name: 'Beyerdynamic DT 770 Pro 80Ω',
-        type: 'Headphones',
-        desc: 'Closed-back studio headphones.',
+        type: { en: 'Headphones', cs: 'Sluchátka' },
+        desc: {
+          en: 'Closed-back studio headphones.',
+          cs: 'Uzavřené studiové sluchátka.',
+        },
       },
       {
         slug: 'fifinet669',
@@ -412,8 +550,11 @@ const DATA = {
         col: 10,
         span: 3,
         name: 'FIFINE T669',
-        type: 'Microphone',
-        desc: 'USB condenser mic with arm.',
+        type: { en: 'Microphone', cs: 'Mikrofon' },
+        desc: {
+          en: 'USB condenser mic with arm.',
+          cs: 'USB kondenzátorový mikrofon s ramenem.',
+        },
       },
       // === PYRAMID middle (3 centered): quest | switch | chair ===
       {
@@ -422,8 +563,11 @@ const DATA = {
         col: 2,
         span: 3,
         name: 'Meta Quest 3 (128 GB)',
-        type: 'VR headset',
-        desc: 'Standalone mixed-reality headset.',
+        type: { en: 'VR headset', cs: 'VR headset' },
+        desc: {
+          en: 'Mixed-reality headset for gaming.',
+          cs: 'Mixed-reality headset pro hraní.',
+        },
       },
       {
         slug: 'tplinkswitch',
@@ -431,8 +575,11 @@ const DATA = {
         col: 5,
         span: 3,
         name: 'TP-Link LiteWave LS105G',
-        type: 'Network switch',
-        desc: '5-port gigabit switch.',
+        type: { en: 'Network switch', cs: 'Síťový switch' },
+        desc: {
+          en: '5-port gigabit switch.',
+          cs: '5-portový gigabitový switch.',
+        },
       },
       {
         slug: 'presidentchair',
@@ -440,8 +587,11 @@ const DATA = {
         col: 8,
         span: 3,
         name: 'IDEA President',
-        type: 'Office chair',
-        desc: 'Black office chair.',
+        type: { en: 'Office chair', cs: 'Kancelářská židle' },
+        desc: {
+          en: 'Chair that’s older than me.',
+          cs: 'Židle která je starší jak já.',
+        },
       },
       // === PYRAMID bottom (centered): desk ===
       {
@@ -455,8 +605,11 @@ const DATA = {
           url: 'https://www.ikea.com.tr/en/product/bekant-black-160x80-cm-underframe-for-table-top-30252906',
         },
         name: 'IKEA BEKANT 160×80',
-        type: 'Desk',
-        desc: 'White 160×80 cm table top on a black underframe.',
+        type: { en: 'Desk', cs: 'Stůl' },
+        desc: {
+          en: 'Built desk with a BEKANT tabletop and frame.',
+          cs: 'Postavený stůl s deskou a rámem BEKANT.',
+        },
       },
     ],
   },

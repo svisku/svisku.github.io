@@ -23,7 +23,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css?v=18" />
+    <link rel="stylesheet" href="styles.css?v=25" />
   </head>
   <body>
     <div class="bg-base"></div>
@@ -32,49 +32,73 @@
 
     <div class="scroll-progress" id="scrollProg"></div>
 
+    <div class="lang-toggle" id="langToggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="cs">CZ</button>
+    </div>
+
     <nav class="top">
-      <a href="index.html"><span>Home</span></a>
-      <a href="stats.html"><span>Arcade</span></a>
-      <a href="setup.html"><span>Setup</span></a>
-      <a href="web.html"><span>Webs</span></a>
+      <a href="index.html"><span data-i18n="nav.home"></span></a>
+      <a href="stats.html"><span data-i18n="nav.arcade"></span></a>
+      <a href="setup.html"><span data-i18n="nav.setup"></span></a>
+      <a href="web.html"><span data-i18n="nav.webs"></span></a>
     </nav>
 
     <div class="page-head reveal">
-      <h1 class="page-title">Web Services</h1>
-      <p class="page-desc">
-        Pick the package that fits you. Hit "I'm interested" and you'll land on
-        my contacts > message me on any platform you like.
-      </p>
+      <h1 class="page-title" data-i18n="web.title"></h1>
+      <p class="page-desc" data-i18n="web.desc"></p>
     </div>
 
     <section class="page" id="pricing">
       <div class="pricing-grid" id="pricingGrid">
-        <div class="skeleton skel-card" style="height: 360px"></div>
-        <div class="skeleton skel-card" style="height: 360px"></div>
-        <div class="skeleton skel-card" style="height: 360px"></div>
+        <div class="skeleton skel-card" style="height: 420px"></div>
+        <div class="skeleton skel-card" style="height: 420px"></div>
+        <div class="skeleton skel-card" style="height: 420px"></div>
       </div>
 
-      <p class="pricing-footnote">
-        Premium projects are quoted individually based on scope. Need something
-        not listed? Just ask. I don't issue invoices!
-      </p>
+      <p class="pricing-footnote" data-i18n="web.footnote"></p>
+    </section>
+
+    <div class="section-divider reveal">
+      <h2 class="page-title" data-i18n="extras.title"></h2>
+      <p class="page-desc" data-i18n="extras.desc"></p>
+    </div>
+
+    <section class="page" id="extras">
+      <div class="extras-grid" id="extrasGrid">
+        <div class="skeleton skel-card" style="height: 240px"></div>
+        <div class="skeleton skel-card" style="height: 240px"></div>
+        <div class="skeleton skel-card" style="height: 240px"></div>
+      </div>
+    </section>
+
+    <div class="section-divider reveal">
+      <h2 class="page-title" data-i18n="how.title"></h2>
+      <p class="page-desc" data-i18n="how.desc"></p>
+    </div>
+
+    <section class="page" id="process">
+      <div class="process-list" id="processList"></div>
+      <div id="paymentBox"></div>
     </section>
 
     <footer class="reveal">
       <div class="signature">DINOUSEG</div>
       <div class="copy">
-        © <span id="year"></span> Dinouseg. All rights reserved.
+        © <span id="year"></span> <span data-i18n="footer.rights"></span>
       </div>
-      <div class="copy-fine">
-        Design &amp; code by Dinouseg. Unauthorized copying, reproduction or
-        redistribution of any part of this site is prohibited.
-      </div>
+      <div class="copy-fine" data-i18n="footer.fine"></div>
     </footer>
 
-    <script src="data.js?v=18"></script>
-    <script src="app.js?v=18"></script>
+    <script src="data.js?v=25"></script>
+    <script src="app.js?v=25"></script>
     <script>
-      renderPricing('#pricingGrid');
+      window.__dino.registerPage(function () {
+        renderPricing('#pricingGrid');
+        renderWebExtras('#extrasGrid');
+        renderProcess('#processList');
+        renderPayment('#paymentBox');
+      });
     </script>
   </body>
 </html>

@@ -7,9 +7,7 @@
 (function () {
   'use strict';
 
-  const prefersReduced = matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- helpers ---------- */
   function el(tag, cls, html) {
@@ -32,7 +30,7 @@
               }
             });
           },
-          { rootMargin: '200px' }
+          { rootMargin: '200px' },
         )
       : null;
 
@@ -65,7 +63,7 @@
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -50px 0px' }
+    { threshold: 0.12, rootMargin: '0px 0px -50px 0px' },
   );
   function observeReveals(scope) {
     (scope || document)
@@ -73,8 +71,180 @@
       .forEach((el) => revealObserver.observe(el));
   }
 
+  /* =========================================================
+     I18N — language (cs / en). Currency derives: cs->czk, en->eur.
+     ========================================================= */
+  let LANG = (function () {
+    try {
+      const s = localStorage.getItem('dino-lang');
+      if (s === 'cs' || s === 'en') return s;
+    } catch (e) {}
+    // default from browser
+    return (navigator.language || 'en').toLowerCase().startsWith('cs')
+      ? 'cs'
+      : 'en';
+  })();
+
+  const I18N = {
+    // nav
+    'nav.home': { en: 'Home', cs: 'Domů' },
+    'nav.arcade': { en: 'Arcade', cs: 'Hry' },
+    'nav.setup': { en: 'Setup', cs: 'Sestava' },
+    'nav.webs': { en: 'Webs', cs: 'Weby' },
+    // hero (index)
+    'hero.sub': { en: 'Gamer & Developer', cs: 'Hráč & Vývojář' },
+    'hero.desc': {
+      en: 'Clean and fast websites, place where my games, music and setup live. Look around.',
+      cs: 'Čisté a rychlé weby, místo, kde žijí moje hry, hudba a sestava. Rozhlédni se.',
+    },
+    'hero.connect': { en: 'Connect', cs: 'Spojit se' },
+    'hero.hire': { en: 'Hire me', cs: 'Najmout' },
+    // contacts
+    'contacts.title': { en: 'Connect', cs: 'Spojit se' },
+    'contacts.desc': {
+      en: "Tap any platform to reach me. My accounts are active and I'll get back to you as soon as I can.",
+      cs: 'Klikni na jakoukoliv síť a ozvi se mi. Účty mám aktivní a odpovím co nejdřív.',
+    },
+    // arcade
+    'games.title': { en: 'Games', cs: 'Hry' },
+    'games.desc': {
+      en: 'My top games ranked by hours played.',
+      cs: 'Moje nejhranější hry podle odehraných hodin.',
+    },
+    'music.title': { en: 'Music', cs: 'Hudba' },
+    'music.desc': {
+      en: 'Tap a thumbnail to listen.',
+      cs: 'Klikni na náhled a poslechni si.',
+    },
+    'music.soon': { en: 'Coming soon', cs: 'Už brzy' },
+    'games.tap': { en: 'Tap to view ▸', cs: 'Klikni pro detail ▸' },
+    'unit.hours': { en: 'Hours', cs: 'Hodin' },
+    'unit.trophies': { en: 'Trophies', cs: 'Trofejí' },
+    // setup
+    'setup.title': { en: 'My Setup', cs: 'Moje sestava' },
+    'setup.desc': {
+      en: 'Everything inside my PC and on my desk. Click anything to open it.',
+      cs: 'Všechno v mém PC a na stole. Klikni na cokoliv a otevři to.',
+    },
+    'setup.pc.title': { en: 'Inside the PC', cs: 'Uvnitř PC' },
+    'setup.pc.desc': {
+      en: 'The components that make the machine run.',
+      cs: 'Komponenty, které pohánějí celý stroj.',
+    },
+    'setup.desk.title': { en: 'Desk & Gear', cs: 'Stůl & vybavení' },
+    'setup.desk.desc': {
+      en: 'Peripherals, audio, displays and the desk itself.',
+      cs: 'Periferie, zvuk, monitory a samotný stůl.',
+    },
+    // web / hire
+    'web.title': { en: 'I build websites', cs: 'Tvořím weby' },
+    'web.desc': {
+      en: "Clean and fast websites, built for you. Pick a package, message me, and let's make it.",
+      cs: 'Čisté a rychlé weby, na míru pro tebe. Vyber balíček, napiš mi a pustíme se do toho.',
+    },
+    'web.footnote': {
+      en: "One-time price for the website. Limited spots... I only take a few projects at a time, so prices won't stay this low forever.",
+      cs: 'Jednorázová cena za web. Omezená kapacita... beru jen pár projektů naráz, takže ceny takhle nízké nezůstanou napořád.',
+    },
+    'extras.title': { en: 'Extra services', cs: 'Doplňkové služby' },
+    'extras.desc': {
+      en: 'Optional things on top of the website. Want your own address, hosting, or someone to look after it? Only if you want it.',
+      cs: 'Nepovinné věci k webu navíc. Chceš vlastní adresu, hosting nebo se o web starat? Jen když budeš chtít.',
+    },
+    'how.title': { en: 'How it works', cs: 'Jak to funguje' },
+    'how.desc': {
+      en: "Simple and stress-free, here's exactly what happens from the first message to your website going live.",
+      cs: 'Jednoduše a v klidu, tady je přesně, co se stane od první zprávy až po spuštění webu.',
+    },
+    'extra.per.yr': { en: '/yr', cs: '/rok' },
+    'extra.per.mo': { en: '/mo', cs: '/měs' },
+    'price.from': { en: 'from', cs: 'od' },
+    'price.recommended': { en: 'recommended', cs: 'doporučeno' },
+    // footer
+    'footer.rights': {
+      en: 'Dinouseg. All rights reserved.',
+      cs: 'Dinouseg. Všechna práva vyhrazena.',
+    },
+    'footer.fine': {
+      en: 'Design & code by Dinouseg. Unauthorized copying, reproduction or redistribution of any part of this site is prohibited.',
+      cs: 'Design & kód Dinouseg. Neoprávněné kopírování, reprodukce nebo šíření jakékoliv části tohoto webu je zakázáno.',
+    },
+    // lang toggle
+    'lang.label': { en: 'Language', cs: 'Jazyk' },
+  };
+
+  function t(key) {
+    const e = I18N[key];
+    return e ? e[LANG] || e.en : key;
+  }
+  // pick a {en,cs} field, or return as-is if it's a plain string
+  function tx(v) {
+    if (v && typeof v === 'object' && (v.en || v.cs)) return v[LANG] || v.en;
+    return v;
+  }
+  function curOfLang() {
+    return LANG === 'cs' ? 'czk' : 'eur';
+  }
+
+  /* fill any element with data-i18n / data-i18n-attr */
+  function applyI18n(scope) {
+    (scope || document).querySelectorAll('[data-i18n]').forEach((node) => {
+      node.textContent = t(node.getAttribute('data-i18n'));
+    });
+    // <html lang>
+    document.documentElement.setAttribute('lang', LANG);
+  }
+
+  // expose for renderers
+  window.__dino = window.__dino || {};
+
+  // pages register their render fn here so a language switch can re-run it
+  let pageRender = null;
+  function registerPage(fn) {
+    pageRender = fn;
+    fn();
+  }
+  function setLang(next) {
+    if (next !== 'cs' && next !== 'en') return;
+    if (next === LANG) return;
+    LANG = next;
+    try {
+      localStorage.setItem('dino-lang', LANG);
+    } catch (e) {}
+    applyI18n(document);
+    paintLangToggle();
+    if (pageRender) pageRender();
+  }
+  function paintLangToggle() {
+    document
+      .querySelectorAll('#langToggle [data-lang]')
+      .forEach((o) =>
+        o.classList.toggle('on', o.getAttribute('data-lang') === LANG),
+      );
+  }
+  function initLangToggle() {
+    const box = document.getElementById('langToggle');
+    if (!box) return;
+    paintLangToggle();
+    box.addEventListener('click', (e) => {
+      const opt = e.target.closest('[data-lang]');
+      if (opt) setLang(opt.getAttribute('data-lang'));
+    });
+  }
+
   /* expose a couple to inline scripts / fallbacks */
-  window.__dino = { lazy, observeReveals, el };
+  window.__dino = {
+    lazy,
+    observeReveals,
+    el,
+    t,
+    tx,
+    registerPage,
+    curOfLang,
+    get lang() {
+      return LANG;
+    },
+  };
 
   /* =========================================================
      WebGL PLASMA / FLUID NOISE SHADER
@@ -195,7 +365,7 @@
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([-1, -1, 3, -1, -1, 3]),
-      gl.STATIC_DRAW
+      gl.STATIC_DRAW,
     );
     const loc = gl.getAttribLocation(prog, 'p');
     gl.enableVertexAttribArray(loc);
@@ -278,32 +448,6 @@
   }
 
   /* =========================================================
-     LIGHTBOX (gallery zoom)
-     ========================================================= */
-  function ensureLightbox() {
-    let lb = document.getElementById('lightbox');
-    if (lb) return lb;
-    lb = el('div', 'lightbox');
-    lb.id = 'lightbox';
-    lb.innerHTML = `<div class="lb-close" aria-label="Close">✕</div><img alt="">`;
-    document.body.appendChild(lb);
-    const close = () => lb.classList.remove('open');
-    lb.addEventListener('click', (e) => {
-      if (e.target === lb || e.target.classList.contains('lb-close')) close();
-    });
-    addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-    });
-    return lb;
-  }
-  function openLightbox(src) {
-    const lb = ensureLightbox();
-    lb.querySelector('img').src = src;
-    lb.classList.add('open');
-  }
-  window.__dino.openLightbox = openLightbox;
-
-  /* =========================================================
      YEAR
      ========================================================= */
   function initYear() {
@@ -315,6 +459,8 @@
      boot
      ========================================================= */
   function boot() {
+    applyI18n(document);
+    initLangToggle();
     initShader();
     initScroll();
     initNav();
@@ -359,19 +505,18 @@ function renderContacts(target) {
 }
 
 function getGameMetric(g) {
+  const t = window.__dino.t;
   if ('trophy' in g) {
     return {
       value: g.trophy,
-      goal: DATA.goalTrophies || 1,
-      unit: 'Trophies',
-      labelSingular: 'Trophies',
+      unit: t('unit.trophies'),
+      labelSingular: t('unit.trophies'),
     };
   }
   return {
     value: g.hours || 0,
-    goal: DATA.goalHours || 1,
-    unit: 'Hours',
-    labelSingular: 'Hours',
+    unit: t('unit.hours'),
+    labelSingular: t('unit.hours'),
   };
 }
 
@@ -455,7 +600,7 @@ function renderMusic(target) {
     blank.innerHTML = `
       <div class="song-thumb"><div class="placeholder">+</div></div>
       <div class="song-meta">
-        <div class="song-title">Coming soon</div>
+        <div class="song-title">${window.__dino.t('music.soon')}</div>
         <div class="song-artist">— — —</div>
       </div>`;
     mg.appendChild(blank);
@@ -463,49 +608,25 @@ function renderMusic(target) {
   window.__dino.observeReveals(mg);
 }
 
-function renderProjects(target) {
-  const pg = document.querySelector(target);
-  if (!pg || typeof DATA === 'undefined') return;
-  pg.innerHTML = '';
-  DATA.projects.forEach((p, i) => {
-    const el = document.createElement('div');
-    el.className = 'project-card reveal';
-    el.style.transitionDelay = i * 90 + 'ms';
-    el.style.setProperty('--proj-color', p.color);
-    el.innerHTML = `
-      <div class="project-head">
-        <div class="project-icon">
-          <img data-src="${p.icon}" alt="" loading="lazy"
-               onerror="this.parentNode.innerHTML='${p.iconLetter || p.name[0]}'">
-        </div>
-        <div class="project-titles">
-          <h3>${p.name}</h3>
-          <div class="sub">${p.sub}</div>
-        </div>
-      </div>
-      <div class="project-desc">${p.desc}</div>`;
-    el.addEventListener('mousemove', (e) => {
-      if (matchMedia('(hover:none)').matches) return;
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `translateY(-6px) perspective(900px) rotateX(${
-        -y * 4
-      }deg) rotateY(${x * 4}deg)`;
-    });
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = '';
-    });
-    pg.appendChild(el);
-    window.__dino.lazy(el.querySelector('img'));
-  });
-  window.__dino.observeReveals(pg);
+/* ---------- currency ---------- */
+function CURV() {
+  return window.__dino.curOfLang();
+}
+function curSym() {
+  return CURV() === 'czk' ? 'Kč' : '€';
+}
+function amount(v) {
+  const cur = CURV();
+  const n = typeof v === 'object' && v ? v[cur] : v;
+  // thin no-break space as thousands separator → tidy "2 990" without a big gap
+  return Number(n).toLocaleString('en-US').replace(/,/g, ' ');
 }
 
 function renderPricing(target) {
   const pg = document.querySelector(target);
   if (!pg || typeof DATA === 'undefined' || !DATA.pricing) return;
   pg.innerHTML = '';
+  const sym = curSym();
   DATA.pricing.forEach((p, i) => {
     const el = document.createElement('div');
     el.className = 'pricing-card reveal' + (p.highlight ? ' is-featured' : '');
@@ -513,67 +634,175 @@ function renderPricing(target) {
 
     const badgeHTML =
       p.highlight && p.badge
-        ? `<div class="pricing-badge">★ ${p.badge}</div>`
+        ? `<div class="pricing-badge">★ ${window.__dino.tx(p.badge)}</div>`
         : '';
     const featuresHTML = (p.features || [])
-      .map((f) => `<li><span class="check">✓</span>${f}</li>`)
+      .map((f) => `<li><span class="check">✓</span>${window.__dino.tx(f)}</li>`)
       .join('');
 
-    const isCustomPrice = typeof p.price === 'string';
+    const cur = (v) => (v ? v[CURV()] : null);
+    const hasPrice = !!p.price;
+    const hasFrom = !!p.priceFrom;
     const hasDiscount =
-      !isCustomPrice && p.priceOriginal && p.priceOriginal > p.price;
+      hasPrice && p.priceOriginal && cur(p.priceOriginal) > cur(p.price);
     const discountPct = hasDiscount
-      ? Math.round(((p.priceOriginal - p.price) / p.priceOriginal) * 100)
+      ? Math.round(
+          ((cur(p.priceOriginal) - cur(p.price)) / cur(p.priceOriginal)) * 100,
+        )
       : 0;
 
     let priceHTML;
-    if (isCustomPrice) {
-      priceHTML = `<div class="pricing-price is-custom"><span class="num">${p.price}</span></div>`;
-    } else {
+    if (hasPrice) {
       const saleRow = hasDiscount
         ? `<div class="pricing-sale-row">
-             <span class="pricing-price-old">${p.priceOriginal.toLocaleString(
-               'cs-CZ'
-             )} €</span>
+             <span class="pricing-price-old">${amount(p.priceOriginal)} ${sym}</span>
              <span class="pricing-discount">−${discountPct}%</span>
            </div>`
         : '';
       priceHTML = `${saleRow}
         <div class="pricing-price${hasDiscount ? ' is-sale' : ''}">
-          <span class="num">${p.price.toLocaleString('cs-CZ')}</span>
-          <span class="cur">€</span>
+          <span class="num">${amount(p.price)}</span>
+          <span class="cur">${sym}</span>
         </div>`;
+    } else if (hasFrom) {
+      priceHTML = `
+        <div class="pricing-price">
+          <span class="pricing-from">${window.__dino.t('price.from')}</span>
+          <span class="num">${amount(p.priceFrom)}</span>
+          <span class="cur">${sym}</span>
+        </div>`;
+    } else {
+      priceHTML = `<div class="pricing-price is-custom"><span class="num">Custom</span></div>`;
     }
 
-    const isExternal = /^(https?:|mailto:)/.test(p.url || '');
-    const targetAttr = isExternal ? ' target="_blank" rel="noopener"' : '';
+    const taglineHTML = p.tagline
+      ? `<div class="pricing-tagline">${window.__dino.tx(p.tagline)}</div>`
+      : '';
+
+    // CTA opens the visitor's mail app, prefilled to dinouseg@gmail.com.
+    // Language follows the UI language: cs -> Czech, en -> English.
+    let ctaHref, ctaAttr;
+    if (p.mailPackage) {
+      const mail = DATA.webMail || 'dinouseg@gmail.com';
+      let subject, body;
+      if (window.__dino.lang === 'cs') {
+        subject = `Web na míru — ${p.mailPackage}`;
+        body =
+          `Dobrý den,\n\n` +
+          `mám zájem o web "${p.mailPackage}". Rád/a bych se domluvil/a na detailech.\n\n` +
+          `Děkuji,\n`;
+      } else {
+        subject = `Website inquiry — ${p.mailPackage}`;
+        body =
+          `Hi,\n\n` +
+          `I'm interested in the "${p.mailPackage}" website. I'd love to talk about the details.\n\n` +
+          `Thanks,\n`;
+      }
+      ctaHref = `mailto:${mail}?subject=${encodeURIComponent(
+        subject,
+      )}&body=${encodeURIComponent(body)}`;
+      ctaAttr = '';
+    } else {
+      ctaHref = p.url || '#';
+      const ext = /^(https?:|mailto:)/.test(ctaHref);
+      ctaAttr = ext ? ' target="_blank" rel="noopener"' : '';
+    }
 
     el.innerHTML = `
       ${badgeHTML}
       <div class="pricing-tier">${p.tier}</div>
       <h3 class="pricing-name">${p.name}</h3>
+      ${taglineHTML}
       ${priceHTML}
-      <div class="pricing-note">${p.priceNote || ''}</div>
+      <div class="pricing-note">${window.__dino.tx(p.priceNote) || ''}</div>
       <ul class="pricing-features">${featuresHTML}</ul>
-      <a href="${p.url}" class="pricing-cta"${targetAttr}>
-        ${p.cta} <span class="arrow">→</span>
+      <a href="${ctaHref}" class="pricing-cta"${ctaAttr}>
+        ${window.__dino.tx(p.cta)} <span class="arrow">→</span>
       </a>`;
     pg.appendChild(el);
   });
   window.__dino.observeReveals(pg);
 }
 
-function renderHub() {
-  if (typeof DATA === 'undefined') return;
-  const desc = document.getElementById('hubDesc');
-  const link = document.getElementById('hubLink');
-  const img = document.getElementById('hubImg');
-  if (desc) desc.textContent = DATA.hub.desc;
-  if (link) link.href = DATA.hub.url;
-  if (img) {
-    img.setAttribute('data-src', DATA.hub.image);
-    window.__dino.lazy(img);
-  }
+/* extra paid services (domain / hosting / monthly care) */
+function renderWebExtras(target) {
+  const wrap = document.querySelector(target);
+  if (!wrap || typeof DATA === 'undefined' || !DATA.webExtras) return;
+  wrap.innerHTML = '';
+  const sym = curSym();
+  const tx = window.__dino.tx;
+  const t = window.__dino.t;
+  DATA.webExtras.forEach((x, i) => {
+    const rows = (x.items || [])
+      .map((it) => {
+        let price;
+        if (it.perYear) {
+          price = `${amount(it.perYear)} ${sym}<span class="per">${t(
+            'extra.per.yr',
+          )}</span>`;
+        } else {
+          price = `${amount(it.perMonth)} ${sym}<span class="per">${t(
+            'extra.per.mo',
+          )}</span>`;
+        }
+        return `<li${it.recommended ? ' class="is-rec"' : ''}>
+          <span class="extra-label">${it.label}${
+            it.recommended ? ` <em>★ ${t('price.recommended')}</em>` : ''
+          }</span>
+          <span class="extra-price">${price}</span>
+        </li>`;
+      })
+      .join('');
+    const card = document.createElement('div');
+    card.className = 'extra-card reveal';
+    card.style.transitionDelay = i * 90 + 'ms';
+    card.innerHTML = `
+      <div class="extra-head">
+        <h3>${tx(x.name)}</h3>
+        <span class="extra-note">${tx(x.note)}</span>
+      </div>
+      <p class="extra-desc">${tx(x.desc)}</p>
+      <ul class="extra-list">${rows}</ul>`;
+    wrap.appendChild(card);
+  });
+  window.__dino.observeReveals(wrap);
+}
+
+/* how-it-works steps */
+function renderProcess(target) {
+  const wrap = document.querySelector(target);
+  if (!wrap || typeof DATA === 'undefined' || !DATA.webProcess) return;
+  wrap.innerHTML = '';
+  DATA.webProcess.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'process-step reveal';
+    el.style.transitionDelay = i * 80 + 'ms';
+    const tx = window.__dino.tx;
+    el.innerHTML = `
+      <div class="process-num">${s.step}</div>
+      <div class="process-body">
+        <div class="process-title">${tx(s.title)}</div>
+        <div class="process-text">${tx(s.text)}</div>
+      </div>`;
+    wrap.appendChild(el);
+  });
+  window.__dino.observeReveals(wrap);
+}
+
+/* payment terms box */
+function renderPayment(target) {
+  const wrap = document.querySelector(target);
+  if (!wrap || typeof DATA === 'undefined' || !DATA.webPayment) return;
+  const tx = window.__dino.tx;
+  const pts = DATA.webPayment.points
+    .map((p) => `<li><span class="check">✓</span>${tx(p)}</li>`)
+    .join('');
+  wrap.innerHTML = `
+    <div class="payment-card reveal">
+      <h3 class="payment-title">${tx(DATA.webPayment.title)}</h3>
+      <ul class="payment-list">${pts}</ul>
+    </div>`;
+  window.__dino.observeReveals(wrap);
 }
 
 function renderSetup(target, section) {
@@ -616,11 +845,11 @@ function renderSetup(target, section) {
       let halvesData;
       if (it.parts) {
         halvesData = it.parts.map((c) =>
-          typeof c === 'string' ? { slug: c, name: c } : c
+          typeof c === 'string' ? { slug: c, name: c } : c,
         );
       } else {
         const parts = (Array.isArray(it.combo) ? it.combo : [it.combo]).map(
-          (c) => (typeof c === 'string' ? { slug: c, name: c } : c)
+          (c) => (typeof c === 'string' ? { slug: c, name: c } : c),
         );
         halvesData = [{ slug: it.slug, name: it.name, url: it.url }, ...parts];
       }
@@ -662,9 +891,9 @@ function renderSetup(target, section) {
       ${linkBadge}
       ${imgBlock}
       <div class="setup-meta">
-        <div class="setup-type">${it.type}</div>
+        <div class="setup-type">${window.__dino.tx(it.type)}</div>
         <div class="setup-name">${it.name}</div>
-        <div class="setup-desc">${it.desc}</div>
+        <div class="setup-desc">${window.__dino.tx(it.desc)}</div>
       </div>`;
 
     grid.appendChild(card);
