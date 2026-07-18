@@ -28,6 +28,8 @@
         --ink: #edede8;
         --muted: #8a8a82;
         --tape-h: 44px;
+        --green: #6fcb93;
+        --greend: #4c8763;
       }
       * {
         margin: 0;
@@ -116,7 +118,7 @@
         font-size: clamp(0.72rem, 2.4vw, 0.85rem);
         letter-spacing: 0.34em;
         text-transform: uppercase;
-        color: var(--yellow);
+        color: var(--green);
         display: flex;
         align-items: center;
         gap: 0.7em;
@@ -134,8 +136,8 @@
         line-height: 1.05;
       }
       h1 .hl {
-        color: var(--yellow);
-        text-shadow: 0 0 34px rgba(255, 200, 0, 0.35);
+        color: var(--green);
+        text-shadow: 0 0 34px var(--greend);
       }
 
       .sub {
@@ -167,7 +169,7 @@
         margin-bottom: 8px;
       }
       .progress__label b {
-        color: var(--yellow);
+        color: var(--green);
         font-weight: 600;
       }
       .progress__bar {
@@ -183,8 +185,8 @@
         border-radius: 99px;
         background: repeating-linear-gradient(
           -45deg,
-          var(--yellow) 0 12px,
-          var(--yellow-deep) 12px 24px
+          var(--green) 0 12px,
+          var(--greend) 12px 24px
         );
         background-size: 34px 100%;
         animation: crawl 1.2s linear infinite;
@@ -221,7 +223,7 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: var(--yellow);
+        background: var(--green);
         animation: blink 1.6s ease-in-out infinite;
       }
       @keyframes blink {
@@ -238,7 +240,7 @@
       .tape {
         flex: none;
         height: var(--tape-h);
-        background: var(--yellow);
+        background: var(--green);
         color: #141412;
         overflow: hidden;
         display: flex;
@@ -330,7 +332,7 @@
         color: var(--muted);
       }
       footer .y {
-        color: var(--yellow);
+        color: var(--green);
       }
 
       @media (prefers-reduced-motion: reduce) {
