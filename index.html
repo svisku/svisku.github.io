@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dinouseg.eu — Under Construction</title>
+    <meta
+      name="description"
+      content="Staré webovky šly k zemi. Nové se právě staví. dinouseg.eu bude brzy zpět."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏗️</text></svg>"
+    />
+    <!-- Fonty: Unbounded (display) + IBM Plex Sans (text) + JetBrains Mono (data) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=Unbounded:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #141412;
+        --surface: #1c1c19;
+        --yellow: #ffc800;
+        --yellow-deep: #e8b000;
+        --ink: #edede8;
+        --muted: #8a8a82;
+        --tape-h: 44px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'IBM Plex Sans', system-ui, sans-serif;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: var(--yellow);
+        color: #141412;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: repeating-linear-gradient(
+          45deg,
+          var(--yellow) 0 8px,
+          #141412 8px 16px
+        );
+        border-radius: 5px;
+      }
+
+      /* hazard stripe edges */
+      .stripe {
+        height: 14px;
+        flex: none;
+        background: repeating-linear-gradient(
+          -45deg,
+          var(--yellow) 0 22px,
+          #141412 22px 44px
+        );
+        border-bottom: 2px solid #000;
+      }
+      .stripe--bottom {
+        border-bottom: 0;
+        border-top: 2px solid #000;
+      }
+
+      main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 48px 20px 24px;
+        gap: 0;
+      }
+
+      .crane {
+        font-size: clamp(84px, 18vw, 150px);
+        line-height: 1;
+        filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.55));
+        animation: sway 5s ease-in-out infinite;
+        transform-origin: bottom center;
+        user-select: none;
+      }
+      @keyframes sway {
+        0%,
+        100% {
+          transform: rotate(-2.5deg) translateY(0);
+        }
+        50% {
+          transform: rotate(2.5deg) translateY(-8px);
+        }
+      }
+
+      .eyebrow {
+        margin-top: 28px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: clamp(0.72rem, 2.4vw, 0.85rem);
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--yellow);
+        display: flex;
+        align-items: center;
+        gap: 0.7em;
+      }
+
+      h1 {
+        margin-top: 14px;
+        font-family: 'Jaro', sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        text-transform: uppercase;
+        font-size: clamp(6.1rem, 9vw, 2.6rem);
+        letter-spacing: 0.04em;
+        line-height: 1.05;
+      }
+      h1 .hl {
+        color: var(--yellow);
+        text-shadow: 0 0 34px rgba(255, 200, 0, 0.35);
+      }
+
+      .sub {
+        margin-top: 18px;
+        max-width: 46ch;
+        color: var(--muted);
+        font-size: clamp(0.95rem, 2.8vw, 1.2rem);
+        line-height: 1.65;
+      }
+      .sub strong {
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      /* fake progress */
+      .progress {
+        flex: none;
+        margin: 68px auto 0;
+        width: min(420px, 86vw);
+      }
+      .progress__label {
+        display: flex;
+        justify-content: space-between;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+      .progress__label b {
+        color: var(--yellow);
+        font-weight: 600;
+      }
+      .progress__bar {
+        height: 16px;
+        background: var(--surface);
+        border: 1px solid #2c2c28;
+        border-radius: 99px;
+        overflow: hidden;
+      }
+      .progress__fill {
+        height: 100%;
+        width: 27%;
+        border-radius: 99px;
+        background: repeating-linear-gradient(
+          -45deg,
+          var(--yellow) 0 12px,
+          var(--yellow-deep) 12px 24px
+        );
+        background-size: 34px 100%;
+        animation: crawl 1.2s linear infinite;
+      }
+      @keyframes crawl {
+        to {
+          background-position: 34px 0;
+        }
+      }
+      .progress__joke {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 0.78rem;
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      .status {
+        margin-top: 30px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6em;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border: 1px solid #2c2c28;
+        background: var(--surface);
+        padding: 0.6em 1.1em;
+        border-radius: 99px;
+      }
+      .status__dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--yellow);
+        animation: blink 1.6s ease-in-out infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.15;
+        }
+      }
+
+      /* marquee tape */
+      .tape {
+        flex: none;
+        height: var(--tape-h);
+        background: var(--yellow);
+        color: #141412;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        transform: rotate(-1.2deg) scale(1.02);
+        border-block: 3px solid #000;
+        box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.5);
+        margin-top: auto;
+      }
+      .tape__track {
+        display: flex;
+        flex: none;
+        gap: 0;
+        animation: tape 42s linear infinite;
+      }
+      .tape span {
+        flex: none;
+        font-family: 'Unbounded', sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        padding: 0 3.2em;
+        white-space: nowrap;
+      }
+      @keyframes tape {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* cones on the ground */
+      .site {
+        flex: none;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: clamp(30px, 10vw, 90px);
+        padding: 26px 16px 0;
+      }
+      .cone {
+        position: relative;
+        width: 56px;
+        height: 58px;
+        clip-path: polygon(
+          50% 0,
+          50% 0,
+          67% 78%,
+          93% 78%,
+          100% 100%,
+          0 100%,
+          7% 78%,
+          33% 78%
+        );
+        background: linear-gradient(#ff9500, #d97400);
+      }
+      .cone::before {
+        /* reflective stripe */
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 42%;
+        height: 19%;
+        background: #f4f4ef;
+      }
+      .cone--s {
+        width: 42px;
+        height: 44px;
+      }
+      .cone--tipped {
+        transform: rotate(102deg) translateY(-4px);
+      }
+      .ground {
+        height: 10px;
+        flex: none;
+        background: var(--surface);
+        border-top: 1px solid #2c2c28;
+      }
+
+      footer {
+        flex: none;
+        text-align: center;
+        padding: 14px 20px 28px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      footer .y {
+        color: var(--yellow);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .crane,
+        .progress__fill,
+        .status__dot,
+        .tape__track {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stripe" aria-hidden="true"></div>
+
+    <main>
+      <div class="crane" aria-hidden="true">🏗️</div>
+
+      <p class="eyebrow">dinouseg.eu</p>
+
+      <h1>Under<br /><span class="hl">Construction</span></h1>
+
+      <p class="sub">Zde jsou v přípravě <strong>nové webovky</strong>.</p>
+      <p class="sub">Máte se na co těšit...</p>
+    </main>
+
+    <div class="tape" aria-hidden="true">
+      <div class="tape__track">
+        <span>404 // PAGE NOT FOUND ✕</span>
+        <span>404 // PAGE NOT FOUND ✕</span>
+        <span>404 // PAGE NOT FOUND ✕</span>
+        <span>404 // PAGE NOT FOUND ✕</span>
+        <span>404 // PAGE NOT FOUND ✕</span>
+        <span>404 // PAGE NOT FOUND ✕</span>
+      </div>
+    </div>
+
+    <div
+      class="progress"
+      role="img"
+      aria-label="Průběh stavby: zhruba 27 procent"
+    >
+      <div class="progress__label">
+        <span>Průběh webu</span><b>27&nbsp;%</b>
+      </div>
+      <div class="progress__bar"><div class="progress__fill"></div></div>
+      <p class="progress__joke">
+        * odhad stavbyvedoucího, realita se může lišit
+      </p>
+    </div>
+
+    <footer>© 2026 <span class="y">Dinouseg</span> · brzy zpět</footer>
+
+    <div class="stripe stripe--bottom" aria-hidden="true"></div>
+  </body>
+</html>
